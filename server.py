@@ -45,9 +45,9 @@ def index():
     }
 
 
-@put('/update')
-def update():
-    data = request.forms.get('data')
+@put('/event/<week_id>/participant/<participant_name>')
+def update(week_id, participant_name):
+    data = request.json
     print data
     return
 

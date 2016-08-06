@@ -50,7 +50,7 @@ class EventWeek(object):
     def __init__(self, participants, event_dates):
         self.participants = participants
         self.event_dates = event_dates
-        self.id = min(self.event_dates, key=(lambda ed: ed.id))
+        self.id = min(self.event_dates, key=(lambda ed: ed.id)).id
 
     @classmethod
     def from_dict(cls, w_data):

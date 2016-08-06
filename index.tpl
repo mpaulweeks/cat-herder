@@ -33,10 +33,11 @@
   <tr>
   <td>
     <input value="{{ person.name or '' }}" placeholder="(your name here)">
+    <button class="save" data-pid="{{person.name}}">SAVE</button>
   </td>
     % for date in data.event_dates:
     % for time in date.times:
-        <td><div class="clickable vote {{'True' if person.get(time) else ''}}">
+        <td><div class="clickable vote {{'True' if person.get(time) else ''}} pid-{{person.name}}" data-event="{{time.event_id}}">
           {{ time.name }}
         </div></td>
     % end
@@ -46,10 +47,13 @@
 </tbody>
 </table>
 
+<button id="submit"> UPDATE </button>
+
 </div>
 <script type="text/javascript">
 $(document).ready(function () {
-    setUpListeners();
+  var weekId = "{{ data.id }}";
+  setUpListeners(weekId);
 });
 </script>
 </body>
