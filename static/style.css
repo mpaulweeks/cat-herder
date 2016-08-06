@@ -9,7 +9,14 @@ a {
 th {
     text-align: center;
 }
+.col-header {
+    border: 2px grey solid;
+}
+.clickable {
+    cursor: pointer;
+}
 .vote {
+    border: 2px grey solid;
     color: salmon;
 }
 .vote.True {

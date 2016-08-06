@@ -35,7 +35,7 @@ def index():
     print data.to_dict()
     return {
         "data": data,
-        "participants": data.participants + [Participant()],
+        "participants": data.participants + [Participant()]*5,
     }
 
 
