@@ -1,3 +1,3 @@
 #!/bin/sh
 touch temp/server.pid
-python server.py
+python -m py.server

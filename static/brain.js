@@ -14,13 +14,18 @@ function setUpListeners(weekId){
     $('.save').click(function (){
         var $this = $(this);
         var pid = $this.data('pid');
+        var new_name = $pid(pid, '.name-edit').val();
+        if (new_name == ""){
+            alert("must enter a name");
+            return;
+        }
         var event_ids = [];
         $pid(pid, '.vote.True').each(function (){
             var $elm = $(this);
             event_ids.push($elm.data('event'));
         });
         var data = {
-            "new_name": $pid(pid, '.name-edit').val(),
+            "new_name": new_name,
             "event_ids": event_ids
         };
         $.ajax({

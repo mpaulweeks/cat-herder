@@ -97,4 +97,5 @@ ENV/
 # local
 database.json
 temp/
+local/
 nohup.out

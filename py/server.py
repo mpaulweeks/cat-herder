@@ -5,7 +5,7 @@
 import json
 import os
 
-from bottle import (
+from .bottle import (
     delete,
     get,
     put,
@@ -16,12 +16,12 @@ from bottle import (
     view,
 )
 
-from model import (
+from .model import (
     EventWeek,
     Participant,
 )
 
-DATABASE_PATH = "database.json"
+DATABASE_PATH = "local/database.json"
 PROCESS_ID = os.getpid()
 
 
