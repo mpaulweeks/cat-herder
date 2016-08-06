@@ -25,9 +25,24 @@ def getDates():
 
 
 class Participant(object):
+    HIDDEN = 'style=display:none;'
+    VISIBLE = ''
+
     def __init__(self, name=None, availability=None):
         self.name = name
         self.availability = set(availability or [])
+
+    @property
+    def is_old(self):
+        return self.VISIBLE if self.name else self.HIDDEN
+
+    @property
+    def is_new(self):
+        return self.HIDDEN if self.name else self.VISIBLE
+
+    @property
+    def clickable(self):
+        return '' if self.name else 'clickable'
 
     def get(self, event_time):
         return event_time.event_id in self.availability

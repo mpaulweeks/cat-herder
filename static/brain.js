@@ -79,11 +79,4 @@ function setUpListeners(weekId){
         var pid = $this.data('pid');
         updateView(pid, true);
     });
-
-    $('.name-edit').each(function (){
-        var $this = $(this);
-        var pid = $this.data('pid');
-        var canEdit = $this.val() == "";
-        updateView(pid, canEdit);
-    });
 }
