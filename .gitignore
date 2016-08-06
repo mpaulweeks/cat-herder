@@ -94,3 +94,4 @@ ENV/
 
 # local
 database.json
+/server.py~
