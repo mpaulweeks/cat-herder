@@ -1,3 +1,6 @@
+"""The Cat Herder server routing module.
+
+"""
 
 import json
 import os
@@ -20,23 +23,37 @@ DATABASE_PATH = "database.json"
 
 
 def load_data(week_id=None):
+    """Loads the schelude for the requested week.
+
+    Cat Herder only supports a single event per week, so `week_id` is a unique
+    identifier for the schedule.
+
+    """
     if not os.path.exists(DATABASE_PATH):
-        with file(DATABASE_PATH, "w+") as f:
-            f.write("{}")
-    with open(DATABASE_PATH) as f:
-        data = json.load(f)
+        with file(DATABASE_PATH, "w+") as database:
+            database.write("{}")
+    with open(DATABASE_PATH) as database:
+        data = json.load(database)
     week_data = data.get(week_id, {})
     return EventWeek.from_dict(week_data)
 
 
 @get('/static/<filename>')
 def static(filename):
+    """Loads static files (e.g. CSS, Javascript).
+
+    """
     return static_file(filename, root='static')
 
 
 @get('/')
 @view('index')
 def index():
+    """Loads the main page.
+
+    This loads the current state of the schedule from the database, and adds a
+    new participant for the current user.
+    """
     data = load_data()
     print data.to_dict()
     return {
