@@ -73,6 +73,7 @@ class EventDate(object):
     def __init__(self, date_str, times):
         self.id = date_str
         self.times = [EventTime(self, t) for t in times]
+        self.name = self.id[4:6] + "/" + self.id[6:]
 
     @classmethod
     def from_dict(cls, d_data):
@@ -92,4 +93,4 @@ class EventTime(object):
         self.event_date = event_date
         self.id = time
         self.event_id = event_date.id + time
-        self.name = self.event_id
+        self.name = self.id

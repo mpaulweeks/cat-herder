@@ -6,3 +6,12 @@ body {
 a {
     color: #91D2FA;
 }
+th {
+    text-align: center;
+}
+.vote {
+    color: salmon;
+}
+.vote.True {
+    color: lightgreen;
+}

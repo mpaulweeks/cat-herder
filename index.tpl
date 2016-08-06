@@ -23,7 +23,7 @@
     <th></th>
     % for date in data.event_dates:
     % for time in date.times:
-        <th>{{ time.name }}</th>
+        <th>{{ time.event_date.name }} <br/> {{ time.name }}</th>
     % end
     % end
   </tr>
@@ -34,7 +34,9 @@
   <td>{{ person.name or "n/a" }}</td>
     % for date in data.event_dates:
     % for time in date.times:
-        <td>{{ str(person.get(time)) }}</td>
+        <td><div class="vote {{str(person.get(time))}}">
+          {{ "YEP" if person.get(time) else "NOPE" }}
+        </div></td>
     % end
     % end
   </tr>
