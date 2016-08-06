@@ -17,7 +17,7 @@
 
 <div class="container text-center">
 
-<h1> Dominion Scheduler </h1>
+<h1> {{ data.game_name }} Scheduler </h1>
 <h3> Week of {{ data.date_object.strftime("%B %d, %Y") }} </h3>
 
 <table class="table" id="dates">
@@ -59,8 +59,9 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function () {
+  var gameId = "{{ data.game_id }}";
   var weekId = "{{ data.id }}";
-  setUpListeners(weekId);
+  setUpListeners(gameId, weekId);
 });
 </script>
 </body>

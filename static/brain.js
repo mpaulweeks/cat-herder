@@ -1,7 +1,14 @@
 
-function setUpListeners(weekId){
+function setUpListeners(gameId, weekId){
     function $pid(pid, query){
         return $(query + '*[data-pid="' + pid + '"]');
+    }
+    function genUrl(pid){
+        return (
+            '/game/' + gameId +
+            '/event/' + weekId +
+            '/participant/' + pid
+        )
     }
 
     $('.vote').click(function (){
@@ -29,7 +36,7 @@ function setUpListeners(weekId){
             "event_ids": event_ids
         };
         $.ajax({
-            url: '/event/' + weekId + '/participant/' + pid,
+            url: genUrl(pid),
             type: 'PUT',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data),
@@ -43,7 +50,7 @@ function setUpListeners(weekId){
         var $this = $(this);
         var pid = $this.data('pid');
         $.ajax({
-            url: '/event/' + weekId + '/participant/' + pid,
+            url: genUrl(pid),
             type: 'DELETE',
             contentType: 'charset=utf-8',
         }).done(function (data){

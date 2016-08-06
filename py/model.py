@@ -6,6 +6,11 @@ from datetime import (
 
 from pytz import timezone
 
+GAMES = {
+    "dominion": "Dominion",
+    "edh": "Elder Dragon Highlander",
+}
+
 
 def getDates():
     eastern = timezone('US/Eastern')
@@ -62,12 +67,17 @@ class Participant(object):
 
 
 class EventWeek(object):
-    def __init__(self, participants, event_dates):
+    def __init__(self, game_id, participants, event_dates):
+        self.game_id = game_id
         self.participants = participants
         self.event_dates = event_dates
         min_date = min(self.event_dates, key=(lambda ed: ed.id))
         self.id = min_date.id
         self.date_object = min_date.date_object
+
+    @property
+    def game_name(self):
+        return GAMES.get(self.game_id, "(unknown)")
 
     def upsert_participant(self, old_name, new_name, events):
         to_edit = None
@@ -88,14 +98,14 @@ class EventWeek(object):
         ]
 
     @classmethod
-    def from_dict(cls, w_data):
+    def from_dict(cls, game_id, w_data):
         p_datas = w_data.get("p", [])
         d_datas = w_data.get("d", [])
         participants = [Participant.from_dict(p_data) for p_data in p_datas]
         event_dates = [EventDate.from_dict(d_data) for d_data in d_datas]
         if not event_dates:
             event_dates = list(getDates())
-        return EventWeek(participants, event_dates)
+        return EventWeek(game_id, participants, event_dates)
 
     def to_dict(self):
         return {
