@@ -25,9 +25,9 @@ def getDates():
 
 
 class Participant(object):
-    def __init__(self, name=None):
+    def __init__(self, name=None, availability=None):
         self.name = name
-        self.availability = set()
+        self.availability = set(availability or [])
 
     def get(self, event_time):
         return event_time.event_id in self.availability
@@ -42,7 +42,7 @@ class Participant(object):
     def to_dict(self):
         return {
             "n": self.name,
-            "a": self.availability,
+            "a": list(self.availability),
         }
 
 
@@ -51,6 +51,17 @@ class EventWeek(object):
         self.participants = participants
         self.event_dates = event_dates
         self.id = min(self.event_dates, key=(lambda ed: ed.id)).id
+
+    def upsert_participant(self, old_name, new_name, events):
+        to_edit = None
+        for p in self.participants:
+            if p.name == old_name:
+                to_edit = p
+        if not to_edit:
+            to_edit = Participant(old_name)
+            self.participants.append(to_edit)
+        to_edit.name = new_name
+        to_edit.availability = set(events)
 
     @classmethod
     def from_dict(cls, w_data):

@@ -13,18 +13,19 @@ function setUpListeners(weekId){
             var $elm = $(this);
             event_ids.push($elm.data('event'));
         });
-        var data = { "event_ids": timestamps };
-        console.log(timestamps);
+        var data = {
+            "new_name": $('#pid-' + pid).val(),
+            "event_ids": event_ids
+        };
         $.ajax({
             url: '/event/' + weekId + '/participant/' + pid,
             type: 'PUT',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data),
         }).done(function (data){
-            // location.reload();
+            location.reload();
         }).fail(function (data){
             alert('something broke');
         });
     });
-    $('body').append(weekId);
 }

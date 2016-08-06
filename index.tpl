@@ -17,6 +17,8 @@
 
 <div class="container text-center">
 
+<h3> {{ data.id }} </h3>
+
 <table class="table" id="dates">
 <thead>
   <tr>
@@ -32,8 +34,8 @@
 % for person in participants:
   <tr>
   <td>
-    <input value="{{ person.name or '' }}" placeholder="(your name here)">
     <button class="save" data-pid="{{person.name}}">SAVE</button>
+    <input value="{{ person.name or '' }}" placeholder="(your name here)" id="pid-{{person.name}}">
   </td>
     % for date in data.event_dates:
     % for time in date.times:
@@ -46,8 +48,6 @@
 % end
 </tbody>
 </table>
-
-<button id="submit"> UPDATE </button>
 
 </div>
 <script type="text/javascript">
