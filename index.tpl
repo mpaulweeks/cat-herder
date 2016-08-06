@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Sched</title>
+<title>Cat Herder</title>
 <link rel='shortcut icon' type='image/x-icon' href='static/favicon.ico' />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,18 +21,18 @@
 <thead>
   <tr>
     <th></th>
-    % for date in dates:
+    % for date in data.event_dates:
     % for time in date.times:
-        <th>{{ time.key }}</th>
+        <th>{{ time.name }}</th>
     % end
     % end
   </tr>
 </thead>
 <tbody>
-% for person in people:
+% for person in participants:
   <tr>
-  <td>{{ person.name }}</td>
-    % for date in dates:
+  <td>{{ person.name or "n/a" }}</td>
+    % for date in data.event_dates:
     % for time in date.times:
         <td>{{ str(person.get(time)) }}</td>
     % end
