@@ -27,7 +27,7 @@ th {
     margin-top: 3px;
 }
 .vote.clickable {
-    border: 2px grey solid;
+    border: 2px darkgrey solid;
 }
 .vote.True {
     color: lightgreen;

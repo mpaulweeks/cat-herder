@@ -1,5 +1,11 @@
 
 function setUpListeners(gameId, weekId){
+    var _pids = new Set();
+    $('.name-view').each(function (){
+        var pid = $(this).data('pid');
+        _pids.add(pid);
+    });
+
     function $pid(pid, query){
         return $(query + '*[data-pid="' + pid + '"]');
     }
@@ -9,6 +15,19 @@ function setUpListeners(gameId, weekId){
             '/event/' + weekId +
             '/participant/' + pid
         )
+    }
+    function checkValidName(pid, new_name){
+        if (new_name == ""){
+            alert("must enter a name");
+            return false;
+        }
+        if (pid != new_name){
+            if (_pids.has(new_name)){
+                alert("must enter a unique name");
+                return false;
+            }
+        }
+        return true;
     }
 
     $('.vote').click(function (){
@@ -22,8 +41,7 @@ function setUpListeners(gameId, weekId){
         var $this = $(this);
         var pid = $this.data('pid');
         var new_name = $pid(pid, '.name-edit').val();
-        if (new_name == ""){
-            alert("must enter a name");
+        if (!checkValidName(pid, new_name)){
             return;
         }
         var event_ids = [];
