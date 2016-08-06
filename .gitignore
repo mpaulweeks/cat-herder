@@ -91,6 +91,8 @@ ENV/
 # OSX
 .DS_Store
 
+# backup files
+*~
 
 # local
 database.json
