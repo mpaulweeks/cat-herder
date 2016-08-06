@@ -17,7 +17,8 @@
 
 <div class="container text-center">
 
-<h3> {{ data.id }} </h3>
+<h1> Dominion Scheduler </h1>
+<h3> Week of {{ data.date_object.strftime("%B %d, %Y") }} </h3>
 
 <table class="table" id="dates">
 <thead>
@@ -25,7 +26,7 @@
     <th></th>
     % for date in data.event_dates:
     <th colspan="{{ len(date.times) }}"><div class="col-header">
-      {{ date.name }}
+      {{ date.dayName }} <br/> {{ date.name }}
     </div></th>
     % end
     <th></th>
@@ -48,6 +49,7 @@
   <td>
     <button class="edit" data-pid="{{person.name}}">EDIT</button>
     <button class="save" data-pid="{{person.name}}">SAVE</button>
+    <button class="delete" data-pid="{{person.name}}">DELETE</button>
   </td>
   </tr>
 % end

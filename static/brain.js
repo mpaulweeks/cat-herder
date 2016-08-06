@@ -34,7 +34,19 @@ function setUpListeners(weekId){
             alert('something broke');
         });
     });
-    // todo add DELETE ajax
+    $('.delete').click(function (){
+        var $this = $(this);
+        var pid = $this.data('pid');
+        $.ajax({
+            url: '/event/' + weekId + '/participant/' + pid,
+            type: 'DELETE',
+            contentType: 'charset=utf-8',
+        }).done(function (data){
+            location.reload();
+        }).fail(function (data){
+            alert('something broke');
+        });
+    });
 
     function updateView(pid, canEdit){
         if (canEdit){
@@ -42,13 +54,18 @@ function setUpListeners(weekId){
             $pid(pid, '.name-edit').show();
             $pid(pid, '.edit').hide();
             $pid(pid, '.save').show();
+            $pid(pid, '.delete').show();
             $pid(pid, '.vote').addClass('clickable');
         } else {
             $pid(pid, '.name-view').show();
             $pid(pid, '.name-edit').hide();
             $pid(pid, '.edit').show();
             $pid(pid, '.save').hide();
+            $pid(pid, '.delete').hide();
             $pid(pid, '.vote').removeClass('clickable');
+        }
+        if (pid == "None"){
+            $pid(pid, '.delete').hide();
         }
     }
 

@@ -22,9 +22,12 @@ th {
     cursor: pointer;
 }
 .vote {
-    border: 2px grey solid;
+    border: 2px #222222 solid;
     color: salmon;
     margin-top: 3px;
+}
+.vote.clickable {
+    border: 2px grey solid;
 }
 .vote.True {
     color: lightgreen;

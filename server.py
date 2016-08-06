@@ -6,6 +6,7 @@ import json
 import os
 
 from bottle import (
+    delete,
     get,
     put,
     request,
@@ -82,6 +83,14 @@ def update(week_id, old_participant_name):
         new_participant_name,
         event_ids,
     )
+    write_data(week_data)
+    return
+
+
+@delete('/event/<week_id>/participant/<participant_name>')
+def delete(week_id, participant_name):
+    week_data = load_data(week_id)
+    week_data.delete_participant(participant_name)
     write_data(week_data)
     return
 

@@ -50,7 +50,9 @@ class EventWeek(object):
     def __init__(self, participants, event_dates):
         self.participants = participants
         self.event_dates = event_dates
-        self.id = min(self.event_dates, key=(lambda ed: ed.id)).id
+        min_date = min(self.event_dates, key=(lambda ed: ed.id))
+        self.id = min_date.id
+        self.date_object = min_date.date_object
 
     def upsert_participant(self, old_name, new_name, events):
         to_edit = None
@@ -62,6 +64,13 @@ class EventWeek(object):
             self.participants.append(to_edit)
         to_edit.name = new_name
         to_edit.availability = set(events)
+
+    def delete_participant(self, name):
+        self.participants = [
+            p
+            for p in self.participants
+            if p.name != name
+        ]
 
     @classmethod
     def from_dict(cls, w_data):
@@ -85,6 +94,8 @@ class EventDate(object):
         self.id = date_str
         self.times = [EventTime(self, t) for t in times]
         self.name = self.id[4:6] + "/" + self.id[6:]
+        self.date_object = datetime.strptime(date_str, '%Y%m%d')
+        self.dayName = self.date_object.strftime('%A')
 
     @classmethod
     def from_dict(cls, d_data):
