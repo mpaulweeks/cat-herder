@@ -31,7 +31,9 @@
 <tbody>
 % for person in participants:
   <tr>
-  <td>{{ person.name or "n/a" }}</td>
+  <td>
+    <input value="{{ person.name or '' }}" placeholder="(your name here)">
+  </td>
     % for date in data.event_dates:
     % for time in date.times:
         <td><div class="clickable vote {{'True' if person.get(time) else ''}}">

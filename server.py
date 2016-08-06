@@ -1,5 +1,6 @@
 
 import json
+import os
 
 from bottle import (
     get,
@@ -15,9 +16,14 @@ from model import (
     Participant,
 )
 
+DATABASE_PATH = "database.json"
+
 
 def load_data(week_id=None):
-    with open("database.json") as f:
+    if not os.path.exists(DATABASE_PATH):
+        with file(DATABASE_PATH, "w+") as f:
+            f.write("{}")
+    with open(DATABASE_PATH) as f:
         data = json.load(f)
     week_data = data.get(week_id, {})
     return EventWeek.from_dict(week_data)
@@ -35,7 +41,7 @@ def index():
     print data.to_dict()
     return {
         "data": data,
-        "participants": data.participants + [Participant()]*5,
+        "participants": data.participants + [Participant()],
     }
 
 

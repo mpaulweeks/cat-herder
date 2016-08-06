@@ -3,6 +3,9 @@ body {
     background-color: #222222;
     color: #DDDDDD;
 }
+input, textarea {
+    background-color : #222222;
+}
 a {
     color: #91D2FA;
 }
