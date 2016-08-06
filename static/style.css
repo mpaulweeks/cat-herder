@@ -13,6 +13,7 @@ th {
 }
 .name-view {
     font-size: 18px;
+    margin-top: 2px;
 }
 .col-header {
     border: 2px grey solid;
@@ -23,6 +24,7 @@ th {
 .vote {
     border: 2px grey solid;
     color: salmon;
+    margin-top: 3px;
 }
 .vote.True {
     color: lightgreen;

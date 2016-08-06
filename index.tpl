@@ -35,19 +35,19 @@
 % for person in participants:
   <tr>
   <td>
-    <input value="{{ person.name or '' }}" placeholder="(your name here)" class="name-edit pid-{{person.name}}" data-pid="{{person.name}}">
-    <span class="name-view pid-{{person.name}}">{{person.name}}</span>
+    <input value="{{ person.name or '' }}" placeholder="(your name here)" class="name-edit" data-pid="{{person.name}}">
+    <div class="name-view" data-pid="{{person.name}}">{{person.name}}</div>
   </td>
     % for date in data.event_dates:
     % for time in date.times:
-        <td><div class="clickable vote {{'True' if person.get(time) else ''}} pid-{{person.name}}" data-event="{{time.event_id}}">
+        <td><div class="clickable vote {{'True' if person.get(time) else ''}}" data-event="{{time.event_id}}" data-pid="{{person.name}}">
           {{ time.name }}
         </div></td>
     % end
     % end
   <td>
-    <button class="edit pid-{{person.name}}" data-pid="{{person.name}}">EDIT</button>
-    <button class="save pid-{{person.name}}" data-pid="{{person.name}}">SAVE</button>
+    <button class="edit" data-pid="{{person.name}}">EDIT</button>
+    <button class="save" data-pid="{{person.name}}">SAVE</button>
   </td>
   </tr>
 % end

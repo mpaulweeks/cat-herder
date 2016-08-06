@@ -1,5 +1,9 @@
 
 function setUpListeners(weekId){
+    function $pid(pid, query){
+        return $(query + '*[data-pid="' + pid + '"]');
+    }
+
     $('.vote').click(function (){
         var $this = $(this);
         if (!$this.hasClass("clickable")){
@@ -11,12 +15,12 @@ function setUpListeners(weekId){
         var $this = $(this);
         var pid = $this.data('pid');
         var event_ids = [];
-        $('.vote.True.pid-' + pid).each(function (){
+        $pid(pid, '.vote.True').each(function (){
             var $elm = $(this);
             event_ids.push($elm.data('event'));
         });
         var data = {
-            "new_name": $('.name-edit.pid-' + pid).val(),
+            "new_name": $pid(pid, '.name-edit').val(),
             "event_ids": event_ids
         };
         $.ajax({
@@ -34,17 +38,17 @@ function setUpListeners(weekId){
 
     function updateView(pid, canEdit){
         if (canEdit){
-            $('.name-view.pid-' + pid).hide();
-            $('.name-edit.pid-' + pid).show();
-            $('.edit.pid-' + pid).hide();
-            $('.save.pid-' + pid).show();
-            $('.vote.pid-' + pid).addClass('clickable');
+            $pid(pid, '.name-view').hide();
+            $pid(pid, '.name-edit').show();
+            $pid(pid, '.edit').hide();
+            $pid(pid, '.save').show();
+            $pid(pid, '.vote').addClass('clickable');
         } else {
-            $('.name-view.pid-' + pid).show();
-            $('.name-edit.pid-' + pid).hide();
-            $('.edit.pid-' + pid).show();
-            $('.save.pid-' + pid).hide();
-            $('.vote.pid-' + pid).removeClass('clickable');
+            $pid(pid, '.name-view').show();
+            $pid(pid, '.name-edit').hide();
+            $pid(pid, '.edit').show();
+            $pid(pid, '.save').hide();
+            $pid(pid, '.vote').removeClass('clickable');
         }
     }
 
