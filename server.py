@@ -22,6 +22,7 @@ from model import (
 )
 
 DATABASE_PATH = "database.json"
+PROCESS_ID = os.getpid()
 
 
 def load_data(week_id=None):
@@ -69,8 +70,7 @@ def dominion():
     This loads the current state of the schedule from the database, and adds a
     new participant for the current user.
     """
-    data = load_data("20160808")
-    print data.to_dict()
+    data = load_data("20160808")  # todo
     return {
         "data": data,
         "participants": data.participants + [Participant()],
@@ -80,7 +80,6 @@ def dominion():
 @put('/event/<week_id>/participant/<old_participant_name>')
 def update(week_id, old_participant_name):
     data = request.json
-    print data
     new_participant_name = data['new_name']
     event_ids = data['event_ids']
     week_data = load_data(week_id)
@@ -100,8 +99,14 @@ def delete(week_id, participant_name):
     write_data(week_data)
     return
 
-run(
-    host='localhost',
-    port=5800,
-    debug=True,
-)
+
+def run_server():
+    with open('temp/server.pid', 'wt') as f:
+        f.write(str(PROCESS_ID))
+    run(
+        host='localhost',
+        port=5800,
+        debug=True,
+    )
+
+run_server()
