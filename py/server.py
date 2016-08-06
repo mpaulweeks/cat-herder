@@ -19,6 +19,7 @@ from .bottle import (
 
 from .model import (
     GAMES,
+    Calendar,
     EventWeek,
     Participant,
 )
@@ -40,7 +41,7 @@ def load_data(game_id, week_id=None):
     with open(DATABASE_PATH) as f:
         data = json.load(f)
     week_data = data.get(game_id, {}).get(week_id, {})
-    return EventWeek.from_dict(game_id, week_data)
+    return EventWeek.from_dict(game_id, week_id, week_data)
 
 
 def write_data(week_data):
@@ -66,6 +67,18 @@ def index():
     redirect("/edh")
 
 
+def _game_view(game_id, week_id):
+    if game_id not in GAMES:
+        abort(404, "No such event.")
+    data = load_data(game_id, week_id)
+    return {
+        "data": data,
+        "participants": data.participants + [Participant()],
+        "today": Calendar.now(),
+        "last_week_id": Calendar.last_week_id(week_id),
+    }
+
+
 @get('/<game_id>')
 @view('index')
 def game(game_id):
@@ -74,13 +87,19 @@ def game(game_id):
     This loads the current state of the schedule from the database, and adds a
     new participant for the current user.
     """
-    if game_id not in GAMES:
-        abort(404, "No such event.")
-    data = load_data(game_id, "20160808")  # todo
-    return {
-        "data": data,
-        "participants": data.participants + [Participant()],
-    }
+    week_id = Calendar.this_week_id()
+    return _game_view(game_id, week_id)
+
+
+@get('/<game_id>/<week_id>')
+@view('index')
+def history(game_id, week_id):
+    """Loads the main page.
+
+    This loads the current state of the schedule from the database, and adds a
+    new participant for the current user.
+    """
+    return _game_view(game_id, week_id)
 
 
 @put('/game/<game_id>/event/<week_id>/participant/<old_participant_name>')

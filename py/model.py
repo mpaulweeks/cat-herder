@@ -12,21 +12,55 @@ GAMES = {
 }
 
 
-def getDates():
-    eastern = timezone('US/Eastern')
-    local_time = datetime.now(eastern)
-    while local_time.weekday() != 0:  # 0 == Monday
-        local_time = local_time + timedelta(days=1)
-    for i in range(5):
-        yield EventDate(
-            (local_time + timedelta(days=i)).strftime('%Y%m%d'),
-            ["6PM"],
-        )
-    for i in range(5, 7):
-        yield EventDate(
-            (local_time + timedelta(days=i)).strftime('%Y%m%d'),
-            ["12PM", "4PM"],
-        )
+class Calendar(object):
+    @classmethod
+    def from_str(cls, date_str):
+        return datetime.strptime(date_str, '%Y%m%d')
+
+    @classmethod
+    def to_str(cls, date_object):
+        return date_object.strftime('%Y%m%d')
+
+    @classmethod
+    def now(cls):
+        eastern = timezone('US/Eastern')
+        return datetime.now(eastern)
+
+    @classmethod
+    def this_monday(cls):
+        local_time = cls.now()
+        if local_time.weekday() >= 5:  # Saturday
+            # if near end of week, jump forward to next week
+            local_time = local_time + timedelta(days=7)
+        while local_time.weekday() != 0:  # 0 == Monday
+            # walk back to find this Monday
+            local_time = local_time - timedelta(days=1)
+        return local_time
+
+    @classmethod
+    def last_week_id(cls, week_id):
+        this_week = cls.from_str(week_id)
+        return cls.to_str(this_week - timedelta(days=7))
+
+    @classmethod
+    def this_week_id(cls):
+        return cls.to_str(cls.this_monday())
+
+    @classmethod
+    def get_dates(cls, week_id):
+        local_time = cls.from_str(week_id)
+        dates = []
+        for i in range(5):
+            dates.append(EventDate(
+                Calendar.to_str(local_time + timedelta(days=i)),
+                ["6PM"],
+            ))
+        for i in range(5, 7):
+            dates.append(EventDate(
+                Calendar.to_str(local_time + timedelta(days=i)),
+                ["12PM", "4PM"],
+            ))
+        return dates
 
 
 class Participant(object):
@@ -98,13 +132,13 @@ class EventWeek(object):
         ]
 
     @classmethod
-    def from_dict(cls, game_id, w_data):
+    def from_dict(cls, game_id, week_id, w_data):
         p_datas = w_data.get("p", [])
         d_datas = w_data.get("d", [])
         participants = [Participant.from_dict(p_data) for p_data in p_datas]
         event_dates = [EventDate.from_dict(d_data) for d_data in d_datas]
         if not event_dates:
-            event_dates = list(getDates())
+            event_dates = Calendar.get_dates(week_id)
         return EventWeek(game_id, participants, event_dates)
 
     def to_dict(self):
@@ -119,7 +153,7 @@ class EventDate(object):
         self.id = date_str
         self.times = [EventTime(self, t) for t in times]
         self.name = self.id[4:6] + "/" + self.id[6:]
-        self.date_object = datetime.strptime(date_str, '%Y%m%d')
+        self.date_object = Calendar.from_str(date_str)
         self.dayName = self.date_object.strftime('%A')
 
     @classmethod
