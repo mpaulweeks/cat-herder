@@ -28,14 +28,15 @@
       {{ date.name }}
     </div></th>
     % end
+    <th></th>
   </tr>
 </thead>
 <tbody>
 % for person in participants:
   <tr>
   <td>
-    <button class="save" data-pid="{{person.name}}">SAVE</button>
-    <input value="{{ person.name or '' }}" placeholder="(your name here)" id="pid-{{person.name}}">
+    <input value="{{ person.name or '' }}" placeholder="(your name here)" class="name-edit pid-{{person.name}}" data-pid="{{person.name}}">
+    <span class="name-view pid-{{person.name}}">{{person.name}}</span>
   </td>
     % for date in data.event_dates:
     % for time in date.times:
@@ -44,6 +45,10 @@
         </div></td>
     % end
     % end
+  <td>
+    <button class="edit pid-{{person.name}}" data-pid="{{person.name}}">EDIT</button>
+    <button class="save pid-{{person.name}}" data-pid="{{person.name}}">SAVE</button>
+  </td>
   </tr>
 % end
 </tbody>

@@ -11,6 +11,9 @@ a {
 th {
     text-align: center;
 }
+.name-view {
+    font-size: 18px;
+}
 .col-header {
     border: 2px grey solid;
 }

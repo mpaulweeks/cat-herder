@@ -1,8 +1,10 @@
 
 function setUpListeners(weekId){
-    // ajax goes here
     $('.vote').click(function (){
         var $this = $(this);
+        if (!$this.hasClass("clickable")){
+            return;
+        }
         $this.toggleClass("True");
     });
     $('.save').click(function (){
@@ -14,7 +16,7 @@ function setUpListeners(weekId){
             event_ids.push($elm.data('event'));
         });
         var data = {
-            "new_name": $('#pid-' + pid).val(),
+            "new_name": $('.name-edit.pid-' + pid).val(),
             "event_ids": event_ids
         };
         $.ajax({
@@ -27,5 +29,35 @@ function setUpListeners(weekId){
         }).fail(function (data){
             alert('something broke');
         });
+    });
+    // todo add DELETE ajax
+
+    function updateView(pid, canEdit){
+        if (canEdit){
+            $('.name-view.pid-' + pid).hide();
+            $('.name-edit.pid-' + pid).show();
+            $('.edit.pid-' + pid).hide();
+            $('.save.pid-' + pid).show();
+            $('.vote.pid-' + pid).addClass('clickable');
+        } else {
+            $('.name-view.pid-' + pid).show();
+            $('.name-edit.pid-' + pid).hide();
+            $('.edit.pid-' + pid).show();
+            $('.save.pid-' + pid).hide();
+            $('.vote.pid-' + pid).removeClass('clickable');
+        }
+    }
+
+    $('.edit').click(function (){
+        var $this = $(this);
+        var pid = $this.data('pid');
+        updateView(pid, true);
+    });
+
+    $('.name-edit').each(function (){
+        var $this = $(this);
+        var pid = $this.data('pid');
+        var canEdit = $this.val() == "";
+        updateView(pid, canEdit);
     });
 }
