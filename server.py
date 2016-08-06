@@ -9,6 +9,7 @@ from bottle import (
     delete,
     get,
     put,
+    redirect,
     request,
     run,
     static_file,
@@ -56,8 +57,13 @@ def static(filename):
 
 
 @get('/')
-@view('index')
 def index():
+    redirect("/dominion")
+
+
+@get('/dominion')
+@view('index')
+def dominion():
     """Loads the main page.
 
     This loads the current state of the schedule from the database, and adds a
