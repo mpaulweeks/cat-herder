@@ -40,22 +40,7 @@ table thead tr.bottom th {
     color: lightgreen;
 }
 
-table {
-  overflow: hidden;
-}
-tr:hover {
-  /*background-color: #eee;*/
-}
-td, th {
-  position: relative;
-}
-.highlight:hover::after{
-  content: "";
-  position: absolute;
+th.hover,
+.highlight.hover {
   background-color: #f5f5f5;
-  left: 0;
-  top: -5000px;
-  height: 10000px;
-  width: 100%;
-  z-index: -1;
 }

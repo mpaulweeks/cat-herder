@@ -168,6 +168,10 @@ class EventDate(object):
             "t": [t.id for t in self.times],
         }
 
+    @property
+    def col_css(self):
+        return " ".join([t.col_css for t in self.times])
+
 
 class EventTime(object):
     def __init__(self, event_date, time):
@@ -175,3 +179,7 @@ class EventTime(object):
         self.id = time
         self.event_id = event_date.id + time
         self.name = self.id
+
+    @property
+    def col_css(self):
+        return "col-" + self.event_id

@@ -122,4 +122,20 @@ function setUpListeners(gameId, weekId){
         var pid = $this.data('pid');
         updateView(pid, true);
     });
+
+    function hover(event){
+        if (!$(this).hasClass('highlight')){
+            return;
+        }
+        var colClass = ".col-" + $(this).data("id");
+        if (event.type == 'mouseover') {
+            // $(this).parent().addClass("hover");
+            $(colClass).addClass("hover");
+        }
+        else {
+            $(colClass).removeClass("hover");
+        }
+    }
+    $("table").delegate('th','mouseover mouseleave',hover);
+    $("table").delegate('td','mouseover mouseleave',hover);
 }
