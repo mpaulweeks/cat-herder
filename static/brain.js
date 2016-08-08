@@ -9,12 +9,35 @@ function setUpListeners(gameId, weekId){
     function $pid(pid, query){
         return $(query + '*[data-pid="' + pid + '"]');
     }
-    function genUrl(pid){
-        return (
+    function genDeleteRequest(pid){
+        var requestUrl = (
             '/game/' + gameId +
             '/event/' + weekId +
             '/participant/' + pid
         )
+        return {
+            url: requestUrl,
+            type: 'DELETE',
+            contentType: 'charset=utf-8',
+        }
+    }
+    function genSaveRequest(pid, data){
+        var requestType = 'POST';
+        var requestUrl = (
+            '/game/' + gameId +
+            '/event/' + weekId +
+            '/participant'
+        )
+        if (pid != ""){
+            requestType = 'PUT';
+            requestUrl += '/' + pid
+        }
+        return {
+            url: requestUrl,
+            type: requestType,
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data),
+        }
     }
     function checkValidName(pid, new_name){
         if (new_name == ""){
@@ -53,12 +76,9 @@ function setUpListeners(gameId, weekId){
             "new_name": new_name,
             "event_ids": event_ids
         };
-        $.ajax({
-            url: genUrl(pid),
-            type: 'PUT',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data),
-        }).done(function (data){
+        $.ajax(
+            genSaveRequest(pid, data)
+        ).done(function (data){
             location.reload();
         }).fail(function (data){
             alert('something broke');
@@ -67,11 +87,9 @@ function setUpListeners(gameId, weekId){
     $('.delete').click(function (){
         var $this = $(this);
         var pid = $this.data('pid');
-        $.ajax({
-            url: genUrl(pid),
-            type: 'DELETE',
-            contentType: 'charset=utf-8',
-        }).done(function (data){
+        $.ajax(
+            genDeleteRequest(pid)
+        ).done(function (data){
             location.reload();
         }).fail(function (data){
             alert('something broke');
@@ -94,7 +112,7 @@ function setUpListeners(gameId, weekId){
             $pid(pid, '.delete').hide();
             $pid(pid, '.vote').removeClass('clickable');
         }
-        if (pid == "None"){
+        if (pid == ""){
             $pid(pid, '.delete').hide();
         }
     }

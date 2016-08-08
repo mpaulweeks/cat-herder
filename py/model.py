@@ -68,7 +68,7 @@ class Participant(object):
     VISIBLE = ''
 
     def __init__(self, name=None, availability=None):
-        self.name = name
+        self.name = name or ""
         self.availability = set(availability or [])
 
     @property

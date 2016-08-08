@@ -51,7 +51,7 @@
   <tr>
   <td>
     <div {{person.is_old}} class="name-view" data-pid="{{person.name}}">{{person.name}}</div>
-    <input {{person.is_new}} value="{{ person.name or '' }}" placeholder="(your name here)" class="name-edit" data-pid="{{person.name}}">
+    <input {{person.is_new}} value="{{ person.name }}" placeholder="(your name here)" class="name-edit" data-pid="{{person.name}}">
   </td>
     % for date in data.event_dates:
     % for time in date.times:

@@ -9,6 +9,7 @@ from .bottle import (
     abort,
     delete,
     get,
+    post,
     put,
     redirect,
     request,
@@ -102,8 +103,7 @@ def history(game_id, week_id):
     return _game_view(game_id, week_id)
 
 
-@put('/game/<game_id>/event/<week_id>/participant/<old_participant_name>')
-def update(game_id, week_id, old_participant_name):
+def _update(request, game_id, week_id, old_participant_name):
     data = request.json
     new_participant_name = data['new_name']
     event_ids = data['event_ids']
@@ -115,6 +115,16 @@ def update(game_id, week_id, old_participant_name):
     )
     write_data(week_data)
     return
+
+
+@post('/game/<game_id>/event/<week_id>/participant')
+def participant_post(game_id, week_id):
+    return _update(request, game_id, week_id, "")
+
+
+@put('/game/<game_id>/event/<week_id>/participant/<old_participant_name>')
+def participant_put(game_id, week_id, old_participant_name):
+    return _update(request, game_id, week_id, old_participant_name)
 
 
 @delete('/game/<game_id>/event/<week_id>/participant/<participant_name>')
