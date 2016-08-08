@@ -124,16 +124,20 @@ function setUpListeners(gameId, weekId){
     });
 
     function hover(event){
-        if (!$(this).hasClass('highlight')){
+        var query = ".col-" + $(this).data("id");
+        if ($(this).hasClass('highlight')){
+            query = '.highlight' + query;
+        } else if ($(this).hasClass('highlight-header')) {
+            query = '.highlight-header' + query;
+        } else {
             return;
         }
-        var colClass = ".col-" + $(this).data("id");
         if (event.type == 'mouseover') {
             // $(this).parent().addClass("hover");
-            $(colClass).addClass("hover");
+            $(query).addClass("hover");
         }
         else {
-            $(colClass).removeClass("hover");
+            $(query).removeClass("hover");
         }
     }
     $("table").delegate('th','mouseover mouseleave',hover);
