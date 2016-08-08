@@ -1,34 +1,61 @@
-
-body {
-    color: #DDDDDD;
-}
-body, input, textarea, button {
-    background-color : #222222;
-}
-a {
-    color: #91D2FA;
-}
-th {
-    text-align: center;
+h3 {
+    color: gray;
 }
 .name-view {
     font-size: 18px;
     margin-top: 2px;
 }
-.col-header {
-    border: 2px grey solid;
-}
 .clickable {
     cursor: pointer;
 }
-.vote {
-    border: 2px #222222 solid;
-    color: salmon;
-    margin-top: 3px;
+table thead tr th {
+    text-align: center;
 }
-.vote.clickable {
-    border: 2px darkgrey solid;
+table thead tr.top th {
+    border: none;
+}
+table thead tr.bottom th {
+    border-top: none;
+}
+
+.vote {
+    color: red;
+    font-weight: bold;
+    font-size: 17px;
+}
+.vote:after {
+    content: "\2717";
 }
 .vote.True {
+    color: green;
+}
+.vote.True::after {
+    content: "\2714";
+}
+.vote.clickable {
+    text-decoration: underline;
+    color: salmon;
+}
+.vote.clickable.True {
     color: lightgreen;
+}
+
+table {
+  overflow: hidden;
+}
+tr:hover {
+  /*background-color: #eee;*/
+}
+td, th {
+  position: relative;
+}
+.highlight:hover::after{
+  content: "";
+  position: absolute;
+  background-color: #f5f5f5;
+  left: 0;
+  top: -5000px;
+  height: 10000px;
+  width: 100%;
+  z-index: -1;
 }

@@ -20,17 +20,28 @@
 <h1> {{ data.game_name }} Scheduler </h1>
 <h3> Today is {{ today.strftime("%A, %B %d") }} </h3>
 % if data.id > "20160808":
-  Looking for <a href="/{{data.game_id}}/{{last_week_id}}">lask week?</a>
+  <h4> Looking for <a href="/{{data.game_id}}/{{last_week_id}}">lask week?</a> </h4>
 % end
 
 <table class="table" id="dates">
 <thead>
-  <tr>
+  <tr class="top">
     <th></th>
     % for date in data.event_dates:
-    <th colspan="{{ len(date.times) }}"><div class="col-header">
+    <th colspan="{{ len(date.times) }}"><div>
       {{ date.dayName }} <br/> {{ date.name }}
     </div></th>
+    % end
+    <th></th>
+  </tr>
+  <tr class="bottom">
+    <th></th>
+    % for date in data.event_dates:
+    % for time in date.times:
+    <th class="highlight"><div>
+      {{ time.name }}
+    </div></th>
+    % end
     % end
     <th></th>
   </tr>
@@ -44,9 +55,11 @@
   </td>
     % for date in data.event_dates:
     % for time in date.times:
-        <td><div class="{{person.clickable}} vote {{'True' if person.get(time) else ''}}" data-event="{{time.event_id}}" data-pid="{{person.name}}">
-          {{ time.name }}
-        </div></td>
+        <td class="{{ 'highlight' if person.name else '' }}">
+        <div class="{{person.clickable}} vote {{'True' if person.get(time) else ''}}" data-event="{{time.event_id}}" data-pid="{{person.name}}">
+          <!-- nothing, filled with css -->
+        </div>
+        </td>
     % end
     % end
   <td>
