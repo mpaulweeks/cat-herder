@@ -12,6 +12,20 @@ GAMES = {
 }
 
 
+class MailgunCredentials(object):
+    def __init__(self, cred_dict):
+        self.mailgun_api_key = cred_dict["mailgun_api_key"]
+        self.mailgun_domain_name = cred_dict["mailgun_domain_name"]
+
+
+class MailingList(object):
+    def __init__(self, game_id, contacts):
+        if game_id not in GAMES:
+            raise Exception("invalid game_id: %s", game_id)
+        self.game_id = game_id
+        self.contacts = contacts
+
+
 class Calendar(object):
     @classmethod
     def from_str(cls, date_str):

@@ -2,10 +2,9 @@
 
 """
 
-import json
 import os
 
-from .bottle import (
+from py.src.bottle import (
     abort,
     delete,
     get,
@@ -18,41 +17,17 @@ from .bottle import (
     view,
 )
 
-from .model import (
+from py.src.model import (
     GAMES,
     Calendar,
-    EventWeek,
     Participant,
 )
+from py.src.store import (
+    load_data,
+    write_data,
+)
 
-DATABASE_PATH = "local/database.json"
 PROCESS_ID = os.getpid()
-
-
-def load_data(game_id, week_id=None):
-    """Loads the schelude for the requested week.
-
-    Cat Herder only supports a single event per week, so `week_id` is a unique
-    identifier for the schedule.
-
-    """
-    if not os.path.exists(DATABASE_PATH):
-        with file(DATABASE_PATH, "w+") as f:
-            f.write("{}")
-    with open(DATABASE_PATH) as f:
-        data = json.load(f)
-    week_data = data.get(game_id, {}).get(week_id, {})
-    return EventWeek.from_dict(game_id, week_id, week_data)
-
-
-def write_data(week_data):
-    with open(DATABASE_PATH) as f:
-        file_data = json.load(f)
-    game_data = file_data.get(week_data.game_id, {})
-    game_data[week_data.id] = week_data.to_dict()
-    file_data[week_data.game_id] = game_data
-    with open(DATABASE_PATH, 'w') as f:
-        json.dump(file_data, f)
 
 
 @get('/static/<filename>')
@@ -143,5 +118,3 @@ def run_server():
         port=5800,
         debug=True,
     )
-
-run_server()
