@@ -24,6 +24,7 @@ class MailingList(object):
             raise Exception("invalid game_id: %s", game_id)
         self.game_id = game_id
         self.contacts = contacts
+        self.name = GAMES[game_id]
 
 
 class Calendar(object):

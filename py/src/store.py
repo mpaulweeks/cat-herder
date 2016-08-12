@@ -3,6 +3,7 @@ import json
 import os
 
 from py.src.model import (
+    MailgunCredentials,
     MailingList,
     EventWeek,
 )
@@ -17,10 +18,7 @@ def load_mailgun_credentials():
         raise Exception("no mailgun creds found")
     with open(MAILGUN_CREDENTIALS_PATH) as f:
         data = json.load(f)
-    return [
-        MailingList(key, val)
-        for key, val in data.iteritems()
-    ]
+    return MailgunCredentials(data)
 
 
 def load_mailing_lists():
