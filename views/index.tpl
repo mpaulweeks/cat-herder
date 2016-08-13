@@ -20,7 +20,7 @@
 <h1> {{ data.game_name }} Scheduler </h1>
 <h3> Today is {{ today.strftime("%A, %B %d") }} </h3>
 % if data.id > "20160808":
-  <h4> Looking for <a href="/{{data.game_id}}/{{last_week_id}}">lask week?</a> </h4>
+  <h4> Looking for <a href="/{{data.game_id}}/{{last_week_id}}">last week?</a> </h4>
 % end
 
 <table class="table" id="dates">
