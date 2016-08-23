@@ -16,7 +16,7 @@ def send_reminder_email(creds, mailing_list):
             creds.mailgun_api_key,
         ),
         data={
-            "from": "Cat Herder <shepherd@%s>" % creds.mailgun_domain_name,
+            "from": "Cat Herder <cat.herder@%s>" % creds.mailgun_domain_name,
             "to": mailing_list.contacts,
             "subject": subject,
             "text": text,
