@@ -19,6 +19,7 @@ from py.src.bottle import (
 
 from py.src.model import (
     GAMES,
+    next_game_id,
     Calendar,
     Participant,
 )
@@ -52,6 +53,7 @@ def _game_view(game_id, week_id):
         "participants": data.participants + [Participant()],
         "today": Calendar.now(),
         "last_week_id": Calendar.last_week_id(week_id),
+        "next_game_id": next_game_id(game_id),
     }
 
 

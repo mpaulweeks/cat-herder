@@ -10,6 +10,13 @@ GAMES = {
     "dominion": "Dominion",
     "edh": "Elder Dragon Highlander",
 }
+GAME_IDS = sorted(GAMES.keys())
+
+
+def next_game_id(game_id):
+    curr_id = GAME_IDS.index(game_id)
+    next_id = (curr_id + 1) % len(GAME_IDS)
+    return GAME_IDS[next_id]
 
 
 class MailgunCredentials(object):

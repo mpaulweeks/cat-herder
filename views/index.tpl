@@ -15,6 +15,10 @@
 </head>
 <body>
 
+<div class="hidden-link">
+  <a href="/{{ next_game_id }}">-></a>
+</div>
+
 <div class="container text-center">
 
 <h1> {{ data.game_name }} Scheduler </h1>

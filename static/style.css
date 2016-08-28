@@ -43,3 +43,12 @@ table thead tr.bottom th {
 .hover {
   background-color: #f5f5f5;
 }
+
+.hidden-link {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+.hidden-link a {
+    color: white;
+}
