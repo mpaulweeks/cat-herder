@@ -20,5 +20,6 @@ def send_reminder_email(creds, mailing_list):
             "to": mailing_list.contacts,
             "subject": subject,
             "text": text,
+            "h:Reply-To": "mpaulweeks@gmail.com",
         },
     )
