@@ -122,12 +122,18 @@ class Participant(object):
         }
 
 
+class InvalidEventWeekStartException(Exception):
+    pass
+
+
 class EventWeek(object):
     def __init__(self, game_id, participants, event_dates):
         self.game_id = game_id
         self.participants = participants
         self.event_dates = event_dates
         min_date = min(self.event_dates, key=(lambda ed: ed.id))
+        if min_date.dayName != "Monday":
+            raise InvalidEventWeekStartException
         self.id = min_date.id
         self.date_object = min_date.date_object
 

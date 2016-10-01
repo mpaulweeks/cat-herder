@@ -22,6 +22,7 @@ from py.src.model import (
     next_game_id,
     Calendar,
     Participant,
+    InvalidEventWeekStartException,
 )
 from py.src.store import (
     load_data,
@@ -41,13 +42,17 @@ def static(filename):
 
 @get('/')
 def index():
+    # todo choose game
     redirect("/edh")
 
 
 def _game_view(game_id, week_id):
     if game_id not in GAMES:
         abort(404, "No such event.")
-    data = load_data(game_id, week_id)
+    try:
+        data = load_data(game_id, week_id)
+    except InvalidEventWeekStartException:
+        abort(400, "Start date must be a Monday")
     return {
         "data": data,
         "participants": data.participants + [Participant()],
