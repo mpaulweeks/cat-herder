@@ -41,9 +41,11 @@ def static(filename):
 
 
 @get('/')
+@view('directory')
 def index():
-    # todo choose game
-    redirect("/edh")
+    return {
+        "games": GAMES,
+    }
 
 
 def _game_view(game_id, week_id):
@@ -63,7 +65,7 @@ def _game_view(game_id, week_id):
 
 
 @get('/<game_id>')
-@view('index')
+@view('schedule')
 def game(game_id):
     """Loads the main page.
 
@@ -75,7 +77,7 @@ def game(game_id):
 
 
 @get('/<game_id>/<week_id>')
-@view('index')
+@view('schedule')
 def history(game_id, week_id):
     """Loads the main page.
 
