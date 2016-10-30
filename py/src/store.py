@@ -51,8 +51,8 @@ def load_data(game_id, week_id=None):
 def write_data(week_data):
     with open(DATABASE_PATH) as f:
         file_data = json.load(f)
-    game_data = file_data.get(week_data.game_id, {})
+    game_data = file_data.get(week_data.game.id, {})
     game_data[week_data.id] = week_data.to_dict()
-    file_data[week_data.game_id] = game_data
+    file_data[week_data.game.id] = game_data
     with open(DATABASE_PATH, 'w') as f:
         json.dump(file_data, f)

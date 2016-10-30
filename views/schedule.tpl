@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Cat Herder - {{ data.game_name }}</title>
+<title>Cat Herder - {{ data.game.name }}</title>
 
 % include('_header.tpl')
 
@@ -11,15 +11,15 @@
 <body>
 
 <div class="hidden-link">
-  <a href="/{{ next_game_id }}">-></a>
+  <a href="/{{ next_game.id }}">-></a>
 </div>
 
 <div class="container text-center">
 
-<h1> {{ data.game_name }} Scheduler </h1>
+<h1> {{ data.game.name }} Scheduler </h1>
 <h3> Today is {{ today.strftime("%A, %B %d") }} </h3>
 % if data.id > "20160808":
-  <h4> Looking for <a href="/{{data.game_id}}/{{last_week_id}}">last week?</a> </h4>
+  <h4> Looking for <a href="/{{data.game.id}}/{{last_week_id}}">last week?</a> </h4>
 % end
 
 <table class="table" id="dates">
@@ -74,7 +74,7 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function () {
-  var gameId = "{{ data.game_id }}";
+  var gameId = "{{ data.game.id }}";
   var weekId = "{{ data.id }}";
   setUpListeners(gameId, weekId);
 });

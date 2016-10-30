@@ -10,7 +10,6 @@ from py.src.bottle import (
     get,
     post,
     put,
-    redirect,
     request,
     run,
     static_file,
@@ -18,8 +17,7 @@ from py.src.bottle import (
 )
 
 from py.src.model import (
-    GAMES,
-    next_game_id,
+    Game,
     Calendar,
     Participant,
     InvalidEventWeekStartException,
@@ -44,12 +42,12 @@ def static(filename):
 @view('directory')
 def index():
     return {
-        "games": GAMES,
+        "games": Game.get_all(),
     }
 
 
 def _game_view(game_id, week_id):
-    if game_id not in GAMES:
+    if not Game.contains(game_id):
         abort(404, "No such event.")
     try:
         data = load_data(game_id, week_id)
@@ -60,7 +58,7 @@ def _game_view(game_id, week_id):
         "participants": data.participants + [Participant()],
         "today": Calendar.now(),
         "last_week_id": Calendar.last_week_id(week_id),
-        "next_game_id": next_game_id(game_id),
+        "next_game": Game.next(game_id),
     }
 
 

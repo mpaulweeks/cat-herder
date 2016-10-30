@@ -6,17 +6,44 @@ from datetime import (
 
 from pytz import timezone
 
-GAMES = {
-    "dominion": "Dominion",
-    "edh": "Elder Dragon Highlander",
-}
-GAME_IDS = sorted(GAMES.keys())
+
+class Game(object):
+    registry = {}
+    registry_ids = []
+
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+        Game.register(self)
+
+    @classmethod
+    def register(cls, game):
+        if game.id in cls.registry:
+            raise Exception("game_id collision in registry")
+        cls.registry[game.id] = game
+        cls.registry_ids.append(game.id)
+
+    @classmethod
+    def get(cls, game_id):
+        return cls.registry[game_id]
+
+    @classmethod
+    def get_all(cls):
+        return cls.registry.values()
+
+    @classmethod
+    def contains(cls, game_id):
+        return game_id in cls.registry
+
+    @classmethod
+    def next(cls, game_id):
+        curr_index = cls.registry_ids.index(game_id)
+        next_id = cls.registry_ids[(curr_index + 1) % len(cls.registry_ids)]
+        return cls.get(next_id)
 
 
-def next_game_id(game_id):
-    curr_id = GAME_IDS.index(game_id)
-    next_id = (curr_id + 1) % len(GAME_IDS)
-    return GAME_IDS[next_id]
+Game("dominion", "Dominion")
+Game("edh", "Elder Dragon Highlander")
 
 
 class MailgunCredentials(object):
@@ -27,11 +54,10 @@ class MailgunCredentials(object):
 
 class MailingList(object):
     def __init__(self, game_id, contacts):
-        if game_id not in GAMES:
+        if not Game.contains(game_id):
             raise Exception("invalid game_id: %s", game_id)
-        self.game_id = game_id
+        self.game = Game.get(game_id)
         self.contacts = contacts
-        self.name = GAMES[game_id]
 
 
 class Calendar(object):
@@ -128,7 +154,7 @@ class InvalidEventWeekStartException(Exception):
 
 class EventWeek(object):
     def __init__(self, game_id, participants, event_dates):
-        self.game_id = game_id
+        self.game = Game.get(game_id)
         self.participants = participants
         self.event_dates = event_dates
         min_date = min(self.event_dates, key=(lambda ed: ed.id))
@@ -136,10 +162,6 @@ class EventWeek(object):
             raise InvalidEventWeekStartException
         self.id = min_date.id
         self.date_object = min_date.date_object
-
-    @property
-    def game_name(self):
-        return GAMES.get(self.game_id, "(unknown)")
 
     def upsert_participant(self, old_name, new_name, events):
         to_edit = None
