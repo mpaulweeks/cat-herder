@@ -17,6 +17,7 @@
 <div class="container text-center">
 
 <h1> {{ data.game.name }} Scheduler </h1>
+<h4> {{ data.game.subtitle }} </h4>
 <h3> Today is {{ today.strftime("%A, %B %d") }} </h3>
 % if data.id > "20160808":
   <h4> Looking for <a href="/{{data.game.id}}/{{last_week_id}}">last week?</a> </h4>

@@ -11,9 +11,10 @@ class Game(object):
     registry = {}
     registry_ids = []
 
-    def __init__(self, id, name):
+    def __init__(self, id, name, subtitle):
         self.id = id
         self.name = name
+        self.subtitle = subtitle
         Game.register(self)
 
     @classmethod
@@ -42,8 +43,8 @@ class Game(object):
         return cls.get(next_id)
 
 
-Game("dominion", "Dominion")
-Game("edh", "Elder Dragon Highlander")
+Game("dominion", "Dominion", "Usually hosted at ZocDoc")
+Game("edh", "Elder Dragon Highlander", "Usually hosted at PaperlessPost")
 
 
 class MailgunCredentials(object):
