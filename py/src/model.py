@@ -43,7 +43,7 @@ class Game(object):
         return cls.get(next_id)
 
 
-Game("dominion", "Dominion", "Usually hosted at ZocDoc")
+Game("dominion", "Dominion", "Usually hosted at Zocdoc")
 Game("edh", "Elder Dragon Highlander", "Usually hosted at PaperlessPost")
 
 
