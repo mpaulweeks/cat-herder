@@ -1,5 +1,8 @@
 # todo
 
+- don't pass user-name in URL for PUT/DELETE
+  - seems to be breaking if name contains paren, or maybe single quote
+  - either use body or invent user_id
 - explicitly support the future
   - current week is actually current week, no special behavior for sat/sun
   - email urls include explicit link to the week
