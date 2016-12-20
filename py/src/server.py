@@ -85,6 +85,10 @@ def history(game_id, week_id):
     return _game_view(game_id, week_id)
 
 
+def _decode_url_participant_name(participant_name):
+    return participant_name.replace("%2F", "/")
+
+
 def _update(request, game_id, week_id, old_participant_name):
     data = request.json
     new_participant_name = data['new_name']
@@ -106,13 +110,18 @@ def participant_post(game_id, week_id):
 
 @put('/game/<game_id>/event/<week_id>/participant/<old_participant_name>')
 def participant_put(game_id, week_id, old_participant_name):
-    return _update(request, game_id, week_id, old_participant_name)
+    return _update(
+        request, game_id, week_id,
+        _decode_url_participant_name(old_participant_name)
+    )
 
 
 @delete('/game/<game_id>/event/<week_id>/participant/<participant_name>')
 def delete(game_id, week_id, participant_name):
     week_data = load_data(game_id, week_id)
-    week_data.delete_participant(participant_name)
+    week_data.delete_participant(
+        _decode_url_participant_name(participant_name)
+    )
     write_data(week_data)
     return
 
