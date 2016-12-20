@@ -1,6 +1,5 @@
 # todo
 
-- sneaky url should maintain current week
 - don't pass raw user-name in URL for PUT/DELETE
   - seems to be breaking if name contains forward slash `/`
   - quick fix: sanitize/format, or just prevent with js

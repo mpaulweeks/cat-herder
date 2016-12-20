@@ -11,7 +11,7 @@
 <body>
 
 <div class="hidden-link">
-  <a href="/{{ next_game.id }}">-></a>
+  <a href="/{{ next_game.id }}/{{ data.id }}">-></a>
 </div>
 
 <div class="container text-center">
