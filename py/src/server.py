@@ -53,11 +53,15 @@ def _game_view(game_id, week_id):
         data = load_data(game_id, week_id)
     except InvalidEventWeekStartException:
         abort(400, "Start date must be a Monday")
+    last_week_id = Calendar.last_week_id(week_id)
+    next_week_id = Calendar.next_week_id(week_id)
+    max_week_id = Calendar.next_week_id()
     return {
         "data": data,
         "participants": data.participants + [Participant()],
         "today": Calendar.now(),
-        "last_week_id": Calendar.last_week_id(week_id),
+        "last_week_id": last_week_id if week_id > "20160808" else None,
+        "next_week_id": next_week_id if next_week_id <= max_week_id else None,
         "next_game": Game.next(game_id),
     }
 

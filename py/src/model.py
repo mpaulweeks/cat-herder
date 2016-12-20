@@ -78,9 +78,6 @@ class Calendar(object):
     @classmethod
     def this_monday(cls):
         local_time = cls.now()
-        if local_time.weekday() >= 5:  # Saturday
-            # if near end of week, jump forward to next week
-            local_time = local_time + timedelta(days=7)
         while local_time.weekday() != 0:  # 0 == Monday
             # walk back to find this Monday
             local_time = local_time - timedelta(days=1)
@@ -94,6 +91,15 @@ class Calendar(object):
     @classmethod
     def this_week_id(cls):
         return cls.to_str(cls.this_monday())
+
+    @classmethod
+    def next_monday(cls, week_id=None):
+        this_week = cls.from_str(week_id or cls.this_week_id())
+        return this_week + timedelta(days=7)
+
+    @classmethod
+    def next_week_id(cls, week_id=None):
+        return cls.to_str(cls.next_monday(week_id))
 
     @classmethod
     def get_dates(cls, week_id):

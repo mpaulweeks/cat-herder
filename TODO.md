@@ -1,10 +1,5 @@
 # todo
 
-- explicitly support the future
-  - current week is actually current week, no special behavior for sat/sun
-    - instead, only show link to next week if sat/sun
-  - email urls include explicit link to the week
-  - "Looking for last week or next week?"
 - don't pass raw user-name in URL for PUT/DELETE
   - short-term fix: done, handling `/` as special case
   - long-term fix: either use body or introduce user_id
