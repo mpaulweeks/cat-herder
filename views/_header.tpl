@@ -14,7 +14,7 @@
 
 </script>
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous">
+<link href="/static/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/static/style.css">
 
-<script src="https://code.jquery.com/jquery-1.12.0.min.js"> </script>
+<script src="/static/jquery-1.12.0.min.js"> </script>

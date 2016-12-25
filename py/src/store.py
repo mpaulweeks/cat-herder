@@ -8,7 +8,6 @@ from py.src.model import (
     EventWeek,
 )
 
-DATABASE_PATH = "local/database.json"
 MAILING_LIST_PATH = "local/mailing_list.json"
 MAILGUN_CREDENTIALS_PATH = "local/mailgun_credentials.json"
 
@@ -32,27 +31,33 @@ def load_mailing_lists():
     ]
 
 
-def load_data(game_id, week_id=None):
+def get_database_path(week_id, game_id):
+    return "local/db/%s_%s.json" % (week_id, game_id)
+
+
+def load_data(game_id, week_id):
     """Loads the schelude for the requested week.
 
     Cat Herder only supports a single event per week, so `week_id` is a unique
     identifier for the schedule.
 
     """
-    if not os.path.exists(DATABASE_PATH):
-        with file(DATABASE_PATH, "w+") as f:
+    database_path = get_database_path(week_id, game_id)
+    if not os.path.exists(database_path):
+        with file(database_path, "w+") as f:
             f.write("{}")
-    with open(DATABASE_PATH) as f:
+    with open(database_path) as f:
         data = json.load(f)
     week_data = data.get(game_id, {}).get(week_id, {})
     return EventWeek.from_dict(game_id, week_id, week_data)
 
 
 def write_data(week_data):
-    with open(DATABASE_PATH) as f:
+    database_path = get_database_path(week_data.id, week_data.game.id)
+    with open(database_path) as f:
         file_data = json.load(f)
     game_data = file_data.get(week_data.game.id, {})
     game_data[week_data.id] = week_data.to_dict()
     file_data[week_data.game.id] = game_data
-    with open(DATABASE_PATH, 'w') as f:
+    with open(database_path, 'w') as f:
         json.dump(file_data, f)
