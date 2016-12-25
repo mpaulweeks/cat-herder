@@ -26,6 +26,18 @@ and then you're done! All of the helper scripts setup and use virtualenv in the 
 ### Helper scripts
 
 All scripts must be run from the top-level directory: `cat-herder/`
-- `./bash/run_server.py` starts up the server on port 5800 in your current shell. Shutdown with `Ctrl+C`
-- `./bash/background.py` starts up the server in the background.
-- `./bash/kill_server.py` kills the current server process, regardless of foreground/background.
+
+- Start up the server on port 5800 in your current shell, and stores the process ID in `temp/server.pid`
+```
+./bash/server_cat.sh
+```
+
+- Start up the server, but in the background.
+```
+./bash/bg_cat.sh
+```
+
+- Kill the current server process, regardless of foreground/background.
+```
+./bash/kill_server.sh
+```

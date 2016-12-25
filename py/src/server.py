@@ -131,10 +131,10 @@ def delete(game_id, week_id, participant_name):
 
 
 def run_server():
-    with open('temp/server.pid', 'wt') as f:
-        f.write(str(PROCESS_ID))
     run(
         host='localhost',
         port=5800,
         debug=True,
     )
+    with open('temp/server.pid', 'wt') as f:
+        f.write(str(PROCESS_ID))
