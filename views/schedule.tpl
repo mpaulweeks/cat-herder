@@ -42,7 +42,7 @@
     <th></th>
     % for date in data.event_dates:
     % for time in date.times:
-    <th class="highlight highlight-header {{time.col_css}}" data-id="{{time.event_id}}"><div>
+    <th class="highlight highlight-header {{time.col_css}} {{'chosen' if time.event_id in data.chosen else ''}}" data-id="{{time.event_id}}"><div>
       {{ time.name }}
     </div></th>
     % end

@@ -160,7 +160,7 @@ class InvalidEventWeekStartException(Exception):
 
 
 class EventWeek(object):
-    def __init__(self, game_id, participants, event_dates):
+    def __init__(self, game_id, participants, event_dates, chosen):
         self.game = Game.get(game_id)
         self.participants = participants
         self.event_dates = event_dates
@@ -169,6 +169,9 @@ class EventWeek(object):
             raise InvalidEventWeekStartException
         self.id = min_date.id
         self.date_object = min_date.date_object
+        self.chosen = set()
+        for event_id in chosen:
+            self.toggle_chosen(event_id)
 
     def upsert_participant(self, old_name, new_name, events):
         to_edit = None
@@ -188,6 +191,16 @@ class EventWeek(object):
             if p.name != name
         ]
 
+    def toggle_chosen(self, event_id):
+        event_domain = set([et.event_id for ed in self.event_dates for et in ed.times])
+        if event_id not in event_domain:
+            raise Exception
+
+        if event_id in self.chosen:
+            self.chosen.remove(event_id)
+        else:
+            self.chosen.add(event_id)
+
     @classmethod
     def from_dict(cls, game_id, week_id, w_data):
         p_datas = w_data.get("p", [])
@@ -196,12 +209,14 @@ class EventWeek(object):
         event_dates = [EventDate.from_dict(d_data) for d_data in d_datas]
         if not event_dates:
             event_dates = Calendar.get_dates(week_id)
-        return EventWeek(game_id, participants, event_dates)
+        chosen = w_data.get("c", [])
+        return EventWeek(game_id, participants, event_dates, chosen)
 
     def to_dict(self):
         return {
             "p": [p.to_dict() for p in self.participants],
             "d": [d.to_dict() for d in self.event_dates],
+            "c": list(self.chosen),
         }
 
 

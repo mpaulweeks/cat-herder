@@ -130,6 +130,14 @@ def delete(game_id, week_id, participant_name):
     return
 
 
+@put('/game/<game_id>/event/<week_id>/chosen/<event_id>')
+def chosen(game_id, week_id, event_id):
+    week_data = load_data(game_id, week_id)
+    week_data.toggle_chosen(event_id)
+    write_data(week_data)
+    return
+
+
 def run_server():
     run(
         host='localhost',
