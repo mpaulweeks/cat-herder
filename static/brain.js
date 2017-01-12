@@ -1,5 +1,7 @@
 
 function setUpListeners(gameId, weekId){
+    var admin = false;
+
     var _pids = new Set();
     $('.name-view').each(function (){
         var pid = $(this).data('pid');
@@ -111,6 +113,9 @@ function setUpListeners(gameId, weekId){
         });
     });
     $('.header-time').click(function(){
+        if (!admin){
+            return;
+        }
         var $this = $(this);
         var eventId = $this.data('id');
         $.ajax(
@@ -147,6 +152,13 @@ function setUpListeners(gameId, weekId){
         var $this = $(this);
         var pid = $this.data('pid');
         updateView(pid, true);
+    });
+    $("body").keypress(function( event ) {
+        if ( event.which == 96 ) {
+            // `
+            event.preventDefault();
+            admin = !admin;
+        }
     });
 
     function hover(event){
