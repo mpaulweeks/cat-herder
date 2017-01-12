@@ -240,9 +240,8 @@ class EventDate(object):
             "t": [t.id for t in self.times],
         }
 
-    @property
-    def col_css(self):
-        return " ".join([t.col_css for t in self.times])
+    def col_css(self, event_data):
+        return " ".join([t.col_css(event_data) for t in self.times])
 
 
 class EventTime(object):
@@ -252,6 +251,7 @@ class EventTime(object):
         self.event_id = event_date.id + time
         self.name = self.id
 
-    @property
-    def col_css(self):
-        return "col-" + self.event_id
+    def col_css(self, event_data):
+        return "col-" + self.event_id + (
+            ' chosen' if self.event_id in event_data.chosen else ''
+        )

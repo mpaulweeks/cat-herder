@@ -32,7 +32,7 @@
   <tr class="top">
     <th></th>
     % for date in data.event_dates:
-    <th class="highlight highlight-header {{date.col_css}}" colspan="{{ len(date.times) }}"><div>
+    <th class="highlight highlight-header {{date.col_css(data)}}" colspan="{{ len(date.times) }}"><div>
       {{ date.dayName }} <br/> {{ date.name }}
     </div></th>
     % end
@@ -42,7 +42,7 @@
     <th></th>
     % for date in data.event_dates:
     % for time in date.times:
-    <th class="highlight highlight-header header-time {{time.col_css}} {{'chosen' if time.event_id in data.chosen else ''}}" data-id="{{time.event_id}}"><div>
+    <th class="highlight highlight-header header-time {{time.col_css(data)}}" data-id="{{time.event_id}}"><div>
       {{ time.name }}
     </div></th>
     % end
@@ -59,7 +59,7 @@
   </td>
     % for date in data.event_dates:
     % for time in date.times:
-        <td class="{{ 'highlight' if person.name else 'highlight-header' }} {{time.col_css}}" data-id="{{time.event_id}}">
+        <td class="{{ 'highlight' if person.name else 'highlight-header' }} {{time.col_css(data)}}" data-id="{{time.event_id}}">
         <div class="{{person.clickable}} vote {{'True' if person.get(time) else ''}}" data-event="{{time.event_id}}" data-pid="{{person.name}}">
           <!-- nothing, filled with css -->
         </div>

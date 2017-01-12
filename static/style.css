@@ -46,8 +46,8 @@ table thead tr.bottom th {
 .hover {
   background-color: #f5f5f5;
 }
-.chosen {
-  background-color: lightgreen;
+.highlight.chosen {
+  background-color: #bbffaa;
 }
 
 .hidden-link {
