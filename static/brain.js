@@ -42,6 +42,18 @@ function setUpListeners(gameId, weekId){
             data: JSON.stringify(data),
         }
     }
+    function genChosenRequest(eventId){
+        var requestUrl = (
+            '/game/' + gameId +
+            '/event/' + weekId +
+            '/chosen/' + eventId
+        )
+        return {
+            url: encodeURI(requestUrl),
+            type: 'PUT',
+            contentType: 'application/json; charset=utf-8',
+        }
+    }
     function checkValidName(pid, new_name){
         if (new_name == ""){
             alert("must enter a name");
@@ -98,6 +110,17 @@ function setUpListeners(gameId, weekId){
             alert('something broke');
         });
     });
+    $('.header-time').click(function(){
+        var $this = $(this);
+        var eventId = $this.data('id');
+        $.ajax(
+            genChosenRequest(eventId)
+        ).done(function (data){
+            location.reload();
+        }).fail(function (data){
+            alert('something broke');
+        });
+    })
 
     function updateView(pid, canEdit){
         if (canEdit){
