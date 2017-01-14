@@ -5,7 +5,7 @@
 
 % include('_header.tpl')
 
-<script src="/static/brain.js"> </script>
+<script src="/static/brain.js?version=2017-01-14"> </script>
 
 </head>
 <body>
