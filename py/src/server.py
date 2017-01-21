@@ -42,7 +42,11 @@ def static(filename):
 @view('directory')
 def index():
     return {
-        "games": Game.get_all(),
+        "games": [
+            game
+            for game in Game.get_all()
+            if not game.hidden
+        ],
     }
 
 

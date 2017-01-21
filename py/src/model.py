@@ -11,10 +11,11 @@ class Game(object):
     registry = {}
     registry_ids = []
 
-    def __init__(self, id, name, subtitle):
+    def __init__(self, id, name, subtitle, hidden=False):
         self.id = id
         self.name = name
         self.subtitle = subtitle
+        self.hidden = hidden
         Game.register(self)
 
     @classmethod
@@ -43,7 +44,7 @@ class Game(object):
         return cls.get(next_id)
 
 
-Game("dominion", "Dominion", "Usually hosted at Zocdoc")
+Game("dominion", "Dominion", "Usually hosted at Zocdoc", hidden=True)
 Game("edh", "Elder Dragon Highlander", "Usually hosted at PaperlessPost")
 
 
