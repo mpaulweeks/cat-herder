@@ -54,6 +54,10 @@ table thead tr.bottom th {
     position: absolute;
     left: 10px;
     top: 10px;
+    color: white;
+}
+.hidden-link.right {
+    right: 10px;
 }
 .hidden-link a {
     color: white;

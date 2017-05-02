@@ -13,6 +13,9 @@
 <div class="hidden-link">
   <a href="/{{ next_game.id }}/{{ data.id }}">-></a>
 </div>
+<div id="toggle-highlight" class="hidden-link right">
+  -
+</div>
 
 <div class="container text-center">
 

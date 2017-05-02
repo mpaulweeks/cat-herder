@@ -153,6 +153,9 @@ function setUpListeners(gameId, weekId){
         var pid = $this.data('pid');
         updateView(pid, true);
     });
+    $('#toggle-highlight').click(function (){
+        admin = !admin;
+    });
     $("body").keypress(function( event ) {
         if ( event.which == 96 ) {
             // `
