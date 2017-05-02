@@ -197,10 +197,12 @@ class EventWeek(object):
         if event_id not in event_domain:
             raise Exception
 
-        if event_id in self.chosen:
+        was_enabled = event_id in self.chosen
+        if was_enabled:
             self.chosen.remove(event_id)
         else:
             self.chosen.add(event_id)
+        return not was_enabled
 
     @classmethod
     def from_dict(cls, game_id, week_id, w_data):
@@ -219,6 +221,10 @@ class EventWeek(object):
             "d": [d.to_dict() for d in self.event_dates],
             "c": list(self.chosen),
         }
+
+    def gcal(self, event_id):
+        # mpw todo
+        return "http://www.google.com/calendar/event?action=TEMPLATE&dates=20170506T153000Z%2f20170506T200000Z&sprop=website%3ahttps%3a%2f%2fwww.meetup.com%2fDevelopers-for-Good%2fevents%2f239466024%2f&text=Teach+Kids+to+Code+-+Manhattan+Workshop&location=Work-Bench+-+110+5th+Avenue+-+New+York%2C+NY+10011%2C+USA&sprop=name:Coders+for+Good&details=Description"
 
 
 class EventDate(object):

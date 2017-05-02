@@ -121,6 +121,9 @@ function setUpListeners(gameId, weekId){
         $.ajax(
             genChosenRequest(eventId)
         ).done(function (data){
+            if (data.gcal){
+                window.open(data.gcal, '_blank').focus();
+            }
             location.reload();
         }).fail(function (data){
             alert('something broke');
