@@ -252,7 +252,24 @@ class EventTime(object):
         self.event_id = event_date.id + time
         self.name = self.id
 
+    def is_chosen(self, event_data):
+        return self.event_id in event_data.chosen
+
     def col_css(self, event_data):
         return "col-" + self.event_id + (
-            ' chosen' if self.event_id in event_data.chosen else ''
+            ' chosen' if self.is_chosen(event_data) else ''
         )
+
+    def gcal(self):
+        start_time = 220000  # mpwtodo hardcoded to 6-10pm
+        end_time = start_time + 40000
+        dates = "%sT%sZ/%sT%sZ" % (
+            self.event_date.id, start_time, self.event_date.id, end_time
+        )
+        return (
+            "http://www.google.com/calendar/event?action=TEMPLATE"
+            "&dates=%s"
+            "&text=EDH @ PP"
+            "&location=115 Broadway, New York, NY, United States"
+            "&details=Come up to the 12th floor and knock on the door"
+        ) % dates

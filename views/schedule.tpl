@@ -11,10 +11,10 @@
 <body>
 
 <div class="hidden-link">
-  <a href="/{{ next_game.id }}/{{ data.id }}">-></a>
+  <a href="/{{ next_game.id }}/{{ data.id }}">S</a>
 </div>
-<div id="toggle-highlight" class="hidden-link right">
-  -
+<div id="toggle-highlight" class="hidden-link right clickable">
+  A
 </div>
 
 <div class="container text-center">
@@ -45,9 +45,12 @@
     <th></th>
     % for date in data.event_dates:
     % for time in date.times:
-    <th class="highlight highlight-header header-time {{time.col_css(data)}}" data-id="{{time.event_id}}"><div>
-      {{ time.name }}
-    </div></th>
+    <th class="highlight highlight-header header-time {{time.col_css(data)}}">
+      <div data-id="{{time.event_id}}"> {{ time.name }} </div>
+      % if time.is_chosen(data):
+        <a class="hidden" href="{{ time.gcal() }}" target="_blank"> GCAL </a>
+      % end
+    </th>
     % end
     % end
     <th></th>

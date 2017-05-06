@@ -69,6 +69,16 @@ function setUpListeners(gameId, weekId){
         }
         return true;
     }
+    function toggleAdmin(){
+        admin = !admin;
+        if (admin){
+            $('.header-time div').addClass("clickable");
+            $('.header-time a').removeClass("hidden");
+        } else {
+            $('.header-time div').removeClass("clickable");
+            $('.header-time a').addClass("hidden");
+        }
+    }
 
     $('.vote').click(function (){
         var $this = $(this);
@@ -112,7 +122,7 @@ function setUpListeners(gameId, weekId){
             alert('something broke');
         });
     });
-    $('.header-time').click(function(){
+    $('.header-time div').click(function(e){
         if (!admin){
             return;
         }
@@ -154,13 +164,13 @@ function setUpListeners(gameId, weekId){
         updateView(pid, true);
     });
     $('#toggle-highlight').click(function (){
-        admin = !admin;
+        toggleAdmin();
     });
     $("body").keypress(function( event ) {
         if ( event.which == 96 ) {
             // `
             event.preventDefault();
-            admin = !admin;
+            toggleAdmin();
         }
     });
 

@@ -11,6 +11,9 @@ h4 {
 .clickable {
     cursor: pointer;
 }
+.hidden {
+    display: none;
+}
 table thead tr th {
     text-align: center;
 }
@@ -51,12 +54,14 @@ table thead tr.bottom th {
 }
 
 .hidden-link {
+    cursor: pointer;
     position: absolute;
     left: 10px;
     top: 10px;
     color: white;
 }
 .hidden-link.right {
+    left: initial;
     right: 10px;
 }
 .hidden-link a {
