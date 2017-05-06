@@ -148,5 +148,5 @@ def run_server():
     run(
         host='localhost',
         port=5800,
-        debug=True,
+        # debug=True,
     )

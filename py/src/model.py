@@ -197,8 +197,7 @@ class EventWeek(object):
         if event_id not in event_domain:
             raise Exception
 
-        was_enabled = event_id in self.chosen
-        if was_enabled:
+        if event_id in self.chosen:
             self.chosen.remove(event_id)
         else:
             self.chosen.add(event_id)
@@ -262,5 +261,15 @@ class EventTime(object):
         )
 
     def gcal(self):
-        # mpw todo
-        return "http://www.google.com/calendar/event?action=TEMPLATE&dates=20170506T153000Z%2f20170506T200000Z&sprop=website%3ahttps%3a%2f%2fwww.meetup.com%2fDevelopers-for-Good%2fevents%2f239466024%2f&text=Teach+Kids+to+Code+-+Manhattan+Workshop&location=Work-Bench+-+110+5th+Avenue+-+New+York%2C+NY+10011%2C+USA&sprop=name:Coders+for+Good&details=Description"
+        start_time = 220000  # mpwtodo hardcoded to 6-10pm
+        end_time = start_time + 40000
+        dates = "%sT%sZ/%sT%sZ" % (
+            self.event_date.id, start_time, self.event_date.id, end_time
+        )
+        return (
+            "http://www.google.com/calendar/event?action=TEMPLATE"
+            "&dates=%s"
+            "&text=EDH @ PP"
+            "&location=115 Broadway, New York, NY, United States"
+            "&details=Come up to the 12th floor and knock on the door"
+        ) % dates
