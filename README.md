@@ -23,6 +23,18 @@ cd cat-herder
 
 and then you're done! All of the helper scripts setup and use virtualenv in the background for you.
 
+### Deploy
+
+Push changes to `origin/deploy`
+
+SSH into server, then run these commands:
+```
+./bash/kill_server.sh
+git checkout deploy
+git pull
+./bash/bg_cat.sh
+```
+
 ### Helper scripts
 
 All scripts must be run from the top-level directory: `cat-herder/`
