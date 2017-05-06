@@ -136,12 +136,10 @@ def delete(game_id, week_id, participant_name):
 
 @put('/game/<game_id>/event/<week_id>/chosen/<event_id>')
 def chosen(game_id, week_id, event_id):
-    res = {}
     week_data = load_data(game_id, week_id)
-    if week_data.toggle_chosen(event_id):
-        res['gcal'] = week_data.gcal(event_id)
+    week_data.toggle_chosen(event_id)
     write_data(week_data)
-    return res
+    return
 
 
 def run_server():
@@ -150,5 +148,5 @@ def run_server():
     run(
         host='localhost',
         port=5800,
-        # debug=True,
+        debug=True,
     )
