@@ -74,9 +74,11 @@ function setUpListeners(gameId, weekId){
         if (admin){
             $('.header-time div').addClass("clickable");
             $('.header-time a').removeClass("hidden");
+            $('.admin-alert').removeClass("hidden");
         } else {
             $('.header-time div').removeClass("clickable");
             $('.header-time a').addClass("hidden");
+            $('.admin-alert').addClass("hidden");
         }
     }
 

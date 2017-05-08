@@ -18,7 +18,7 @@
 </div>
 
 <div class="container text-center">
-
+<h3 class="admin-alert hidden"> ADMIN ENABLED </h3>
 <h1> {{ data.game.name }} Scheduler </h1>
 <h4> {{ data.game.subtitle }} </h4>
 <h3> Today is {{ today.strftime("%A, %B %d") }} </h3>
