@@ -15,6 +15,6 @@
 </script>
 
 <link href="/static/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="/static/style.css?version=2017-01-14">
+<link rel="stylesheet" href="/static/style.css?version=2017-05-15">
 
 <script src="/static/jquery-1.12.0.min.js"> </script>
