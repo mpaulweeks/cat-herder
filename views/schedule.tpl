@@ -3,9 +3,9 @@
 <head>
 <title>Cat Herder - {{ data.game.name }}</title>
 
-% include('_header.tpl')
+% include('_header.tpl', epoch=epoch)
 
-<script src="/static/brain.js?version=2017-05-15"> </script>
+<script src="/static/brain.js?version={{ epoch }}"> </script>
 
 </head>
 <body>

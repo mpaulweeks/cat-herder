@@ -3,7 +3,7 @@
 <head>
 <title>Cat Herder</title>
 
-% include('_header.tpl')
+% include('_header.tpl', epoch=epoch)
 
 </head>
 <body>

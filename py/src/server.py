@@ -2,6 +2,7 @@
 
 """
 
+from datetime import datetime
 import os
 
 from py.src.bottle import (
@@ -28,6 +29,7 @@ from py.src.store import (
 )
 
 PROCESS_ID = os.getpid()
+EPOCH = datetime.utcnow().strftime('%Y%m%d')
 
 
 @get('/static/<filename>')
@@ -42,6 +44,7 @@ def static(filename):
 @view('directory')
 def index():
     return {
+        "epoch": EPOCH,
         "games": [
             game
             for game in Game.get_all()
@@ -61,6 +64,7 @@ def _game_view(game_id, week_id):
     next_week_id = Calendar.next_week_id(week_id)
     max_week_id = Calendar.next_week_id()
     return {
+        "epoch": EPOCH,
         "data": data,
         "participants": data.participants + [Participant()],
         "today": Calendar.now(),
