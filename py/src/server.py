@@ -28,8 +28,8 @@ from py.src.store import (
     write_data,
 )
 
+EPOCH = datetime.utcnow().strftime('%Y%m%d%H%M')
 PROCESS_ID = os.getpid()
-EPOCH = datetime.utcnow().strftime('%Y%m%d')
 
 
 @get('/static/<filename>')
