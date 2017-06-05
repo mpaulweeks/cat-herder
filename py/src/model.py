@@ -271,5 +271,5 @@ class EventTime(object):
             "&dates=%s"
             "&text=EDH @ PP"
             "&location=115 Broadway, New York, NY, United States"
-            "&details=Come up to the 12th floor and knock on the door"
+            "&details=Use the rear elevators to come up to the 11th floor"
         ) % dates
