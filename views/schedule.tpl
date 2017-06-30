@@ -21,6 +21,9 @@
 <h3 class="admin-alert hidden"> ADMIN ENABLED </h3>
 <h1> {{ data.game.name }} Scheduler </h1>
 <h4> {{ data.game.subtitle }} </h4>
+% if data.message:
+  <h4> {{ data.message }} </h4>
+% end
 <h3> Today is {{ today.strftime("%A, %B %d") }} </h3>
 % if last_week_id and next_week_id:
   <h4> Looking for <a href="/{{data.game.id}}/{{last_week_id}}">last week</a> or <a href="/{{data.game.id}}/{{next_week_id}}">next week</a>? </h4>

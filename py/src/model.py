@@ -161,7 +161,7 @@ class InvalidEventWeekStartException(Exception):
 
 
 class EventWeek(object):
-    def __init__(self, game_id, participants, event_dates, chosen):
+    def __init__(self, game_id, participants, event_dates, chosen, message):
         self.game = Game.get(game_id)
         self.participants = participants
         self.event_dates = event_dates
@@ -173,6 +173,7 @@ class EventWeek(object):
         self.chosen = set()
         for event_id in chosen:
             self.toggle_chosen(event_id)
+        self.message = message
 
     def upsert_participant(self, old_name, new_name, events):
         to_edit = None
@@ -211,10 +212,12 @@ class EventWeek(object):
         if not event_dates:
             event_dates = Calendar.get_dates(week_id)
         chosen = w_data.get("c", [])
-        return EventWeek(game_id, participants, event_dates, chosen)
+        message = w_data.get("m", None)
+        return EventWeek(game_id, participants, event_dates, chosen, message)
 
     def to_dict(self):
         return {
+            "m": self.message,
             "p": [p.to_dict() for p in self.participants],
             "d": [d.to_dict() for d in self.event_dates],
             "c": list(self.chosen),
