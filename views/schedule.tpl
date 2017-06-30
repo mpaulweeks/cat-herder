@@ -22,7 +22,7 @@
 <h1> {{ data.game.name }} Scheduler </h1>
 <h4> {{ data.game.subtitle }} </h4>
 % if data.message:
-  <h4> {{ data.message }} </h4>
+  <h4 class="message"> {{ data.message }} </h4>
 % end
 <h3> Today is {{ today.strftime("%A, %B %d") }} </h3>
 % if last_week_id and next_week_id:

@@ -7,6 +7,10 @@ h3 {
 h4 {
     color: gray;
 }
+.message {
+    color: black;
+}
+
 .name-view {
     font-size: 18px;
     margin-top: 2px;
