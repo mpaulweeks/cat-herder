@@ -46,6 +46,7 @@ class Game(object):
 
 Game("dominion", "Dominion", "Usually hosted at Zocdoc", hidden=True)
 Game("edh", "Elder Dragon Highlander", "Usually hosted at PaperlessPost")
+Game("ppstew", "Games with Stew", "Hosted somewhere at sometime", hidden=True)
 
 
 class MailgunCredentials(object):
