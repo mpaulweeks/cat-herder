@@ -13,6 +13,8 @@ def migrate_database():
             game_id = (f.split('_')[1]).split('.')[0]
             week_id = f.split('_')[0]
             data = load_data(game_id, week_id)
+            print('loading ' + week_id)
+            print('writing ' + data.week_id)
             write_data(data)
 
 
