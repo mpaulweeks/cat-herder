@@ -63,22 +63,22 @@
 % for person in participants:
   <tr>
   <td>
-    <div {{person.is_old}} class="name-view" data-pid="{{person.name}}">{{person.name}}</div>
-    <input {{person.is_new}} value="{{ person.name }}" placeholder="(your name here)" class="name-edit" data-pid="{{person.name}}">
+    <div {{person.is_old}} class="name-view" data-pid="{{person.id}}">{{person.name}}</div>
+    <input {{person.is_new}} value="{{ person.name }}" placeholder="(your name here)" class="name-edit" data-pid="{{person.id}}">
   </td>
     % for date in data.event_dates:
     % for time in date.times:
         <td class="{{ 'highlight' if person.name else 'highlight-header' }} {{time.col_css(data)}}" data-id="{{time.event_id}}">
-        <div class="{{person.clickable}} vote {{'True' if person.get(time) else ''}}" data-event="{{time.event_id}}" data-pid="{{person.name}}">
+        <div class="{{person.clickable}} vote {{'True' if person.get(time) else ''}}" data-event="{{time.event_id}}" data-pid="{{person.id}}">
           <!-- nothing, filled with css -->
         </div>
         </td>
     % end
     % end
   <td>
-    <button {{person.is_old}} class="edit" data-pid="{{person.name}}">EDIT</button>
-    <button {{person.is_new}} class="save" data-pid="{{person.name}}">SAVE</button>
-    <button style="display: none;" class="delete" data-pid="{{person.name}}">DELETE</button>
+    <button {{person.is_old}} class="edit" data-pid="{{person.id}}">EDIT</button>
+    <button {{person.is_new}} class="save" data-pid="{{person.id}}">SAVE</button>
+    <button style="display: none;" class="delete" data-pid="{{person.id}}">DELETE</button>
   </td>
   </tr>
 % end

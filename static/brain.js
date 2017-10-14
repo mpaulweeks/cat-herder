@@ -8,9 +8,6 @@ function setUpListeners(gameId, weekId){
         _pids.add(pid);
     });
 
-    function encodePid(pid){
-        return pid.replace("/", "%2F");
-    }
     function $pid(pid, query){
         return $(query + '*[data-pid="' + pid + '"]');
     }
@@ -18,7 +15,7 @@ function setUpListeners(gameId, weekId){
         var requestUrl = (
             '/game/' + gameId +
             '/event/' + weekId +
-            '/participant/' + encodePid(pid)
+            '/participant/' + pid
         )
         return {
             url: encodeURI(requestUrl),
@@ -35,7 +32,7 @@ function setUpListeners(gameId, weekId){
         )
         if (pid != ""){
             requestType = 'PUT';
-            requestUrl += '/' + encodePid(pid)
+            requestUrl += '/' + pid
         }
         return {
             url: encodeURI(requestUrl),
@@ -60,12 +57,6 @@ function setUpListeners(gameId, weekId){
         if (new_name == ""){
             alert("must enter a name");
             return false;
-        }
-        if (pid != new_name){
-            if (_pids.has(new_name)){
-                alert("must enter a unique name");
-                return false;
-            }
         }
         return true;
     }

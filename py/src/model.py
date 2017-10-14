@@ -3,6 +3,7 @@ from datetime import (
     datetime,
     timedelta,
 )
+import time
 
 from pytz import timezone
 
@@ -124,7 +125,12 @@ class Participant(object):
     HIDDEN = 'style=display:none;'
     VISIBLE = ''
 
-    def __init__(self, name=None, availability=None):
+    @classmethod
+    def random_id(cls):
+        return str(int(time.time() * 1000000))
+
+    def __init__(self, pid=None, name=None, availability=None):
+        self.id = pid or self.random_id()
         self.name = name or ""
         self.availability = set(availability or [])
 
@@ -146,12 +152,14 @@ class Participant(object):
     @classmethod
     def from_dict(cls, p_data):
         return Participant(
+            p_data.get("i"),
             p_data["n"],
             p_data["a"],
         )
 
     def to_dict(self):
         return {
+            "i": self.id,
             "n": self.name,
             "a": list(self.availability),
         }
@@ -176,26 +184,28 @@ class EventWeek(object):
             self.toggle_chosen(event_id)
         self.message = message
 
-    def upsert_participant(self, old_name, new_name, events):
+    def upsert_participant(self, pid, new_name, events):
         to_edit = None
         for p in self.participants:
-            if p.name == old_name:
+            if p.id == pid:
                 to_edit = p
         if not to_edit:
-            to_edit = Participant(old_name)
+            to_edit = Participant(pid)
             self.participants.append(to_edit)
         to_edit.name = new_name
         to_edit.availability = set(events)
 
-    def delete_participant(self, name):
+    def delete_participant(self, pid):
         self.participants = [
             p
             for p in self.participants
-            if p.name != name
+            if p.id != pid
         ]
 
     def toggle_chosen(self, event_id):
-        event_domain = set([et.event_id for ed in self.event_dates for et in ed.times])
+        event_domain = set(
+            [et.event_id for ed in self.event_dates for et in ed.times]
+        )
         if event_id not in event_domain:
             raise Exception
 

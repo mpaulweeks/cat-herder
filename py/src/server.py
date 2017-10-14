@@ -97,17 +97,13 @@ def history(game_id, week_id):
     return _game_view(game_id, week_id)
 
 
-def _decode_url_participant_name(participant_name):
-    return participant_name.replace("%2F", "/")
-
-
-def _update(request, game_id, week_id, old_participant_name):
+def _update(request, game_id, week_id, pid):
     data = request.json
     new_participant_name = data['new_name']
     event_ids = data['event_ids']
     week_data = load_data(game_id, week_id)
     week_data.upsert_participant(
-        old_participant_name,
+        pid,
         new_participant_name,
         event_ids,
     )
@@ -117,23 +113,18 @@ def _update(request, game_id, week_id, old_participant_name):
 
 @post('/game/<game_id>/event/<week_id>/participant')
 def participant_post(game_id, week_id):
-    return _update(request, game_id, week_id, "")
+    return _update(request, game_id, week_id, None)
 
 
-@put('/game/<game_id>/event/<week_id>/participant/<old_participant_name>')
-def participant_put(game_id, week_id, old_participant_name):
-    return _update(
-        request, game_id, week_id,
-        _decode_url_participant_name(old_participant_name)
-    )
+@put('/game/<game_id>/event/<week_id>/participant/<pid>')
+def participant_put(game_id, week_id, pid):
+    return _update(request, game_id, week_id, pid)
 
 
-@delete('/game/<game_id>/event/<week_id>/participant/<participant_name>')
-def delete(game_id, week_id, participant_name):
+@delete('/game/<game_id>/event/<week_id>/participant/<pid>')
+def delete(game_id, week_id, pid):
     week_data = load_data(game_id, week_id)
-    week_data.delete_participant(
-        _decode_url_participant_name(participant_name)
-    )
+    week_data.delete_participant(pid)
     write_data(week_data)
     return
 
