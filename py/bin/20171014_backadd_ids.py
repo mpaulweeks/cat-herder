@@ -14,7 +14,10 @@ def migrate_database():
             week_id = f.split('_')[0]
             data = load_data(game_id, week_id)
             print('loading ' + week_id)
-            print('writing ' + data.week_id)
+            print('writing ' + data.id)
+            if week_id != data.id:
+                print('error')
+                raise Exception
             write_data(data)
 
 
