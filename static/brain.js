@@ -2,12 +2,6 @@
 function setUpListeners(gameId, weekId){
     var admin = false;
 
-    var _pids = new Set();
-    $('.name-view').each(function (){
-        var pid = $(this).data('pid');
-        _pids.add(pid);
-    });
-
     function $pid(pid, query){
         return $(query + '*[data-pid="' + pid + '"]');
     }
