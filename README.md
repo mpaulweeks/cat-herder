@@ -25,12 +25,12 @@ and then you're done! All of the helper scripts setup and use virtualenv in the 
 
 ### Deploy
 
-Push changes to `origin/deploy`
+Push changes to `origin/master`
 
 SSH into server, then run these commands:
 ```
 ./bash/kill_server.sh
-git checkout deploy
+git checkout master
 git pull
 ./bash/bg_cat.sh
 ```
