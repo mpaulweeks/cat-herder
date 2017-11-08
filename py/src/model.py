@@ -275,8 +275,15 @@ class EventTime(object):
         )
 
     def gcal(self):
-        start_time = 220000  # mpwtodo hardcoded to 6-10pm
-        end_time = start_time + 40000
+        # mpwtodo hardcoded to 6-10pm
+        utc_start_time = 180000
+        duration = 40000
+
+        # dst_offset = 40000  # EDT during summer
+        dst_offset = 50000  # EDT during summer
+
+        start_time = utc_start_time + dst_offset
+        end_time = start_time + duration
         dates = "%sT%sZ/%sT%sZ" % (
             self.event_date.id, start_time, self.event_date.id, end_time
         )
