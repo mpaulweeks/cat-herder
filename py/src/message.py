@@ -5,7 +5,7 @@ from py.src.model import Calendar
 
 
 HTML_BODY = """
-http://cat-herder.mpaulweeks.com/%s/%s
+https://cat-herder.mpaulweeks.com/%s/%s
 
 To unsubscribe from this list, please email mpaulweeks@gmail.com
 """
