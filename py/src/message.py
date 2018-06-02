@@ -43,7 +43,7 @@ def send_update_email(creds, week, user_name, is_new):
     game = week.game
     print ('sending update email for %s' % game.id)
     subject = "Update: %s %s" % (game.name, Calendar.to_str(week.date_object))
-    text = REMINDER_HTML % (
+    text = UPDATE_HTML % (
         game.id,
         week.id,
         user_name,
