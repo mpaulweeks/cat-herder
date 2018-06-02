@@ -3,6 +3,16 @@ import requests
 
 from py.src.model import Calendar
 
+# common helpers
+
+ADMIN_EMAIL = "mpaulweeks@gmail.com"
+
+
+def date_to_month_day(date_object):
+    return date_object.strftime("%m/%d")
+
+
+# weekly reminders
 
 REMINDER_HTML = """https://cat-herder.mpaulweeks.com/%s/%s
 
@@ -11,12 +21,17 @@ To unsubscribe from this list, please email mpaulweeks@gmail.com
 
 
 def send_reminder_email(creds, mailing_list):
-    print ('sending reminder email for %s' % mailing_list.game.id)
-    next_week = Calendar.next_monday().strftime("%m/%d")
-    subject = "%s %s" % (mailing_list.game.name, next_week)
+    next_week_name = date_to_month_day(Calendar.next_monday())
+    next_week_id = Calendar.next_week_id()
+
+    print ('sending reminder email for %s/%s' % (
+        mailing_list.game.id, next_week_id
+    ))
+
+    subject = "%s %s" % (mailing_list.game.name, next_week_name)
     text = REMINDER_HTML % (
         mailing_list.game.id,
-        Calendar.next_week_id(),
+        next_week_id,
     )
     return requests.post(
         "https://api.mailgun.net/v3/%s/messages" % creds.mailgun_domain_name,
@@ -29,10 +44,12 @@ def send_reminder_email(creds, mailing_list):
             "to": mailing_list.contacts,
             "subject": subject,
             "text": text,
-            "h:Reply-To": "mpaulweeks@gmail.com",
+            "h:Reply-To": ADMIN_EMAIL,
         },
     )
 
+
+# admin updates
 
 UPDATE_HTML = """https://cat-herder.mpaulweeks.com/%s/%s
 
@@ -41,13 +58,18 @@ UPDATE_HTML = """https://cat-herder.mpaulweeks.com/%s/%s
 
 def send_update_email(creds, week, user_name, is_new):
     game = week.game
-    print ('sending update email for %s' % game.id)
-    subject = "Update: %s %s" % (game.name, Calendar.to_str(week.date_object))
+    week_name = date_to_month_day(week.date_object)
+
+    print ('sending update email for %s/%s' % (
+        game.id, week.id
+    ))
+
+    subject = "Update: %s %s" % (game.name, week_name)
     text = UPDATE_HTML % (
         game.id,
         week.id,
         user_name,
-        'RSVPd' if is_new else 'updated their RSVP',
+        'just added their RSVP' if is_new else 'updated their RSVP',
     )
     return requests.post(
         "https://api.mailgun.net/v3/%s/messages" % creds.mailgun_domain_name,
@@ -57,9 +79,9 @@ def send_update_email(creds, week, user_name, is_new):
         ),
         data={
             "from": "Cat Herder <cat.herder@%s>" % creds.mailgun_domain_name,
-            "to": "mpaulweeks@gmail.com",
+            "to": ADMIN_EMAIL,
             "subject": subject,
             "text": text,
-            "h:Reply-To": "mpaulweeks@gmail.com",
+            "h:Reply-To": ADMIN_EMAIL,
         },
     )
