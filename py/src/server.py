@@ -24,8 +24,12 @@ from py.src.model import (
     InvalidEventWeekStartException,
 )
 from py.src.store import (
+    load_mailgun_credentials,
     load_data,
     write_data,
+)
+from py.src.message import (
+    send_update_email,
 )
 
 EPOCH = datetime.utcnow().strftime('%Y%m%d%H%M')
@@ -108,6 +112,12 @@ def _update(request, game_id, week_id, pid):
         event_ids,
     )
     write_data(week_data)
+    try:
+        creds = load_mailgun_credentials()
+        send_update_email(creds, week_data, new_participant_name, not pid)
+    except Exception as e:
+        print('there was an error sending update email')
+        print(e)
     return
 
 
