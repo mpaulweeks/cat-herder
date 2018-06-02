@@ -189,11 +189,13 @@ class EventWeek(object):
         for p in self.participants:
             if p.id == pid:
                 to_edit = p
+        is_new = not to_edit
         if not to_edit:
             to_edit = Participant(pid)
             self.participants.append(to_edit)
         to_edit.name = new_name
         to_edit.availability = set(events)
+        return is_new
 
     def delete_participant(self, pid):
         self.participants = [

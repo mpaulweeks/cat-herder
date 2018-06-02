@@ -106,7 +106,7 @@ def _update(request, game_id, week_id, pid):
     new_participant_name = data['new_name']
     event_ids = data['event_ids']
     week_data = load_data(game_id, week_id)
-    week_data.upsert_participant(
+    is_new = week_data.upsert_participant(
         pid,
         new_participant_name,
         event_ids,
@@ -114,9 +114,9 @@ def _update(request, game_id, week_id, pid):
     write_data(week_data)
     try:
         creds = load_mailgun_credentials()
-        send_update_email(creds, week_data, new_participant_name, not pid)
+        send_update_email(creds, week_data, new_participant_name, is_new)
     except Exception as e:
-        print('there was an error sending update email')
+        print('there was an error sending update email:')
         print(e)
     return
 

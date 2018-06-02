@@ -25,6 +25,8 @@ function setUpListeners(gameId, weekId){
             '/participant'
         )
         if (pid != ""){
+            // todo is this always true now?
+            // safe to kill POST?
             requestType = 'PUT';
             requestUrl += '/' + pid
         }
