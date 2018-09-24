@@ -46,7 +46,7 @@ class Game(object):
 
 
 Game("dominion", "Dominion", "Usually hosted at Zocdoc", hidden=True)
-Game("edh", "Elder Dragon Highlander", "Usually hosted at PaperlessPost")
+Game("edh", "Elder Dragon Highlander", "Usually hosted at ???")
 Game("ppstew", "Games with Stew", "Hosted somewhere at sometime", hidden=True)
 
 
@@ -292,7 +292,7 @@ class EventTime(object):
         return (
             "http://www.google.com/calendar/event?action=TEMPLATE"
             "&dates=%s"
-            "&text=EDH @ PP"
-            "&location=115 Broadway, New York, NY, United States"
-            "&details=Use the rear elevators to come up to the 11th floor"
+            "&text=EDH @ ???"
+            "&location=???"
+            "&details=Hosted by:"
         ) % dates
