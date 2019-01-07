@@ -45,8 +45,9 @@ class Game(object):
         return cls.get(next_id)
 
 
+Game("edh", "Elder Dragon Highlander", "Usually hosted in Flatiron")
+Game("smash", "Smash Ultimate", "Usually hosted in Gramercy")
 Game("dominion", "Dominion", "Usually hosted at Zocdoc", hidden=True)
-Game("edh", "Elder Dragon Highlander", "Usually hosted at ???")
 Game("ppstew", "Games with Stew", "Hosted somewhere at sometime", hidden=True)
 
 
