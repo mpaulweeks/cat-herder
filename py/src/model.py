@@ -41,9 +41,11 @@ class Game(object):
     @classmethod
     def next(cls, game_id):
         curr_index = cls.registry_ids.index(game_id)
-        next_id = cls.registry_ids[(curr_index + 1) % len(cls.registry_ids)]
+        next_index = (curr_index + 1) % len(cls.registry_ids)
+        next_id = cls.registry_ids[next_index]
         while cls.get(next_id).hidden:
-            next_id = cls.registry_ids[(next_id + 1) % len(cls.registry_ids)]
+            next_index = (next_index + 1) % len(cls.registry_ids)
+            next_id = cls.registry_ids[next_index]
         return cls.get(next_id)
 
 
