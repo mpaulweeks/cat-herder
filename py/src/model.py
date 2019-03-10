@@ -12,10 +12,11 @@ class Game(object):
     registry = {}
     registry_ids = []
 
-    def __init__(self, id, name, subtitle, hidden=False):
+    def __init__(self, id, name, subtitle, subject="???", hidden=False):
         self.id = id
         self.name = name
         self.subtitle = subtitle
+        self.subject = subject
         self.hidden = hidden
         Game.register(self)
 
@@ -49,8 +50,8 @@ class Game(object):
         return cls.get(next_id)
 
 
-Game("edh", "Elder Dragon Highlander", "Usually hosted in Flatiron")
-Game("smash", "Smash Ultimate", "Usually hosted in Gramercy")
+Game("edh", "Elder Dragon Highlander", "Usually hosted in Flatiron", subject="EDH @ Nielsen")
+Game("smash", "Smash Ultimate", "Usually hosted in Gramercy", subject="Smash @ StuyTown")
 Game("dominion", "Dominion", "Usually hosted at Zocdoc", hidden=True)
 Game("ppstew", "Games with Stew", "Hosted somewhere at sometime", hidden=True)
 
@@ -281,7 +282,7 @@ class EventTime(object):
             ' chosen' if self.is_chosen(event_data) else ''
         )
 
-    def gcal(self):
+    def gcal(self, game):
         # mpwtodo hardcoded to 6-10pm
         utc_start_time = 180000
         duration = 40000
@@ -297,7 +298,7 @@ class EventTime(object):
         return (
             "http://www.google.com/calendar/event?action=TEMPLATE"
             "&dates=%s"
-            "&text=EDH @ ???"
+            "&text=%s"
             "&location=???"
             "&details=Hosted by:"
-        ) % dates
+        ) % (dates, game.subject)

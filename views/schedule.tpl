@@ -50,7 +50,7 @@
     % for time in date.times:
     <th class="highlight highlight-header header-time {{time.col_css(data)}}">
       % if time.is_chosen(data):
-        <a class="hidden" href="{{ time.gcal() }}" target="_blank"> GCAL </a>
+        <a class="hidden" href="{{ time.gcal(data.game) }}" target="_blank"> GCAL </a>
       % end
       <div data-id="{{time.event_id}}"> {{ time.name }} </div>
     </th>
