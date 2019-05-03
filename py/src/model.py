@@ -51,7 +51,7 @@ class Game(object):
 
 
 Game("edh", "Elder Dragon Highlander", "Usually hosted in Flatiron", subject="EDH @ Nielsen")
-Game("smash", "Smash Ultimate", "Usually hosted in Gramercy", subject="Smash @ StuyTown")
+Game("smash", "Smash Ultimate", "Usually hosted in Gramercy", subject="Smash @ StuyTown", hidden=True)
 Game("dominion", "Dominion", "Usually hosted at Zocdoc", hidden=True)
 Game("ppstew", "Games with Stew", "Hosted somewhere at sometime", hidden=True)
 
