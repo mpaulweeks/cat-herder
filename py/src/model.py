@@ -287,8 +287,8 @@ class EventTime(object):
         utc_start_time = 180000
         duration = 40000
 
-        dst_offset = 40000  # EDT during summer
-        # dst_offset = 50000  # EDT during winter
+        # dst_offset = 40000  # EDT during summer
+        dst_offset = 50000  # EDT during winter
 
         start_time = utc_start_time + dst_offset
         end_time = start_time + duration
