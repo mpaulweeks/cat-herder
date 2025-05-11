@@ -1,3 +1,6 @@
+> [!CAUTION]
+> this repo is now defunct. please see https://github.com/mpaulweeks/cat-herder-js/
+
 # cat-herder
 
 Simple online scheduler for weekly events.
